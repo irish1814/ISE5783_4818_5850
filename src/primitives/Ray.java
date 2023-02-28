@@ -1,7 +1,7 @@
 package primitives;
 
 public class Ray {
-    Point center;
+    Point p0;
     Vector direction;
 
     Ray(Vector v, Point p) {
@@ -12,6 +12,6 @@ public class Ray {
         else {
             direction = new Vector(v.xyz.d1, v.xyz.d2, v.xyz.d3);
         }
-        center = new Point(p.xyz.d1, p.xyz.d2, p.xyz.d3);
+        p0 = new Vector(p.xyz);
     }
 }

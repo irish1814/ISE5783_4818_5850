@@ -10,7 +10,7 @@ public class Vector extends Point {
     }
 
     public double lengthSquared() {
-        return Math.abs(Math.pow(xyz.d1, 2) +  Math.pow(xyz.d2, 2) +Math.pow(xyz.d3, 2));
+        return Math.abs(xyz.d1 * xyz.d1 +  xyz.d2 * xyz.d2 + xyz.d3 * xyz.d3);
     }
 
     public double length() {
@@ -18,7 +18,7 @@ public class Vector extends Point {
     }
 
     public Vector subtract(Vector v) {
-        return new Vector(v.xyz.d1 - this.xyz.d1, v.xyz.d2 - this.xyz.d2, v.xyz.d3 - this.xyz.d3);
+        return new Vector(v.xyz.subtract(this.xyz));
     }
 
     public double dotProduct(Vector v) {
