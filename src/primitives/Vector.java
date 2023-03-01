@@ -31,13 +31,6 @@ public class Vector extends Point {
         return new Vector(v.xyz.add(this.xyz));
     }
 
-    public Vector subtract(Vector v) {
-        if(v.xyz.subtract(this.xyz).equals(Double3.ZERO)) {
-            throw new IllegalArgumentException("Subtraction of the two vector equals to the ZERO vector");
-        }
-        return new Vector(v.xyz.subtract(this.xyz));
-    }
-
     public double dotProduct(Vector v) {
         return this.xyz.d1 * v.xyz.d1 + this.xyz.d2 * v.xyz.d2 + this.xyz.d3 * v.xyz.d3;
     }
