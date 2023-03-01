@@ -15,8 +15,11 @@ public class Point {
         return new Point(this.xyz.add(p.xyz));
     }
 
-    public Point subtract(Point p) {
-        return new Point(p.xyz.subtract(this.xyz));
+    public Vector subtract(Point p) {
+        if(p.xyz.add(this.xyz).equals(Double3.ZERO)) {
+            throw new IllegalArgumentException("Addition of the a vector and a point equals to the ZERO vector");
+        }
+        return new Vector(this.xyz.subtract(p.xyz));
     }
 
     public double distanceSquared(Point p) {
