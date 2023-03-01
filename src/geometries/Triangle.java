@@ -1,5 +1,5 @@
-package geometries;
-
-public class Triangle extends Polygon {
-
-}
+//package geometries;
+//
+//public class Triangle extends Polygon {
+//
+//}

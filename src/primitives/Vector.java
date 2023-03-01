@@ -3,21 +3,35 @@ package primitives;
 public class Vector extends Point {
     public Vector(double d1, double d2, double d3) {
         super(d1, d2, d3);
+        if(Util.isZero(d1) && Util.isZero(d2) && Util.isZero(d3)) {
+            throw new IllegalArgumentException("Vector of zero's are forbidden !");
+        }
     }
 
-    public Vector(Double3 point) {
+    Vector(Double3 point) {
         super(point);
     }
 
     public double lengthSquared() {
-        return Math.abs(xyz.d1 * xyz.d1 +  xyz.d2 * xyz.d2 + xyz.d3 * xyz.d3);
+        return Math.abs(xyz.d1 * xyz.d1 + xyz.d2 * xyz.d2 + xyz.d3 * xyz.d3);
     }
 
     public double length() {
+        // length of a Vector is equal to √ (x² + y² + z²)
         return Math.sqrt(lengthSquared());
     }
 
+    public Vector add(Vector v) {
+        if(v.xyz.add(this.xyz).equals(Double3.ZERO)) {
+            throw new IllegalArgumentException("Addition of the two vector equals to the ZERO vector");
+        }
+        return new Vector(v.xyz.add(this.xyz));
+    }
+
     public Vector subtract(Vector v) {
+        if(v.xyz.subtract(this.xyz).equals(Double3.ZERO)) {
+            throw new IllegalArgumentException("Subtraction of the two vector equals to the ZERO vector");
+        }
         return new Vector(v.xyz.subtract(this.xyz));
     }
 
@@ -26,12 +40,18 @@ public class Vector extends Point {
     }
 
     public Vector crossProduct(Vector v) {
+        // First check if the Vectors are parallel
+        double t = this.xyz.d1 / v.xyz.d1;
+        if(t == this.xyz.d2 / v.xyz.d2 && t == this.xyz.d3 / v.xyz.d3) {
+            throw new IllegalArgumentException("The crossProduct of parallel vectors is 0.");
+        }
+        // Based on the matrix multiplication
         return new Vector(this.xyz.d2 * v.xyz.d3 - this.xyz.d3 * v.xyz.d2,
-                this.xyz.d1 * v.xyz.d3 - this.xyz.d3 * v.xyz.d1, this.xyz.d1 * v.xyz.d2 - this.xyz.d2 * v.xyz.d1);
+                - this.xyz.d1 * v.xyz.d3 - this.xyz.d3 * v.xyz.d1, this.xyz.d1 * v.xyz.d2 - this.xyz.d2 * v.xyz.d1);
     }
 
     public Vector normalize() {
-        return new Vector(xyz.d1 / lengthSquared(), xyz.d2 / lengthSquared(), xyz.d3 / lengthSquared());
+        return new Vector(xyz.d1 / length(), xyz.d2 / length(), xyz.d3 / length());
     }
 
     @Override

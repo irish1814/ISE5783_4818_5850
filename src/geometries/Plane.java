@@ -5,8 +5,8 @@ import primitives.Point;
 import primitives.Vector;
 
 public class Plane implements Geometry{
-    Point q0;
-    Vector normal;
+    private Point q0;
+    private Vector normal;
     Plane(Point p1, Point p2, Point p3) {
 
     }

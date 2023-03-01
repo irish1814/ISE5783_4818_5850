@@ -1,13 +1,13 @@
 package primitives;
 
 public class Point {
-    Double3 xyz;
+    protected Double3 xyz;
 
     public Point(double d1, double d2, double d3) {
         xyz = new Double3(d1, d2, d3);
     }
 
-    public Point(Double3 point) {
+    Point(Double3 point) {
         xyz = new Double3(point.d1, point.d2, point.d3);
     }
 
