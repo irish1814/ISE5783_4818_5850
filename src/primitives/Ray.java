@@ -10,9 +10,9 @@ public class Ray {
             direction = v.normalize();
         }
         else {
-            direction = new Vector(v.xyz.d1, v.xyz.d2, v.xyz.d3);
+            direction = new Vector(v.xyz);
         }
-        p0 = new Vector(p.xyz);
+        p0 = new Point(p.xyz);
     }
 
     public Point getP0() {

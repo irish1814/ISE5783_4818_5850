@@ -1,7 +1,9 @@
+// Ishay Houri 322884818
+// Elad Raz
+
 package test;
 
 import static java.lang.System.out;
-import static primitives.Util.isZero;
 
 import primitives.Point;
 import primitives.Util;
