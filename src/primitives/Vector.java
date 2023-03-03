@@ -1,5 +1,9 @@
 package primitives;
 
+/** This class will serve all primitive and geometries classes based on a Vector
+ * @author Ishay Houri & Elad Raz
+ * */
+
 public class Vector extends Point {
 
     /** Constructor to initialize Double3 based object with its three number values
@@ -58,7 +62,7 @@ public class Vector extends Point {
 
     /** Cross Product between two vectors
      * @param v is the second vector of the operation
-     * @return Normal vector - N which sustain N.dotProduct(V1) = (0, 0, 0) AND N.dotProduct(V2) = (0, 0, 0)
+     * @return Normal vector - N which sustain N.dotProduct(V1) = 0 AND N.dotProduct(V2) = 0
      * */
     public Vector crossProduct(Vector v) {
         // The vectors are a multiplication of a scalar k - (v1, v2, v3) = k(v4, v5, v6)
@@ -71,7 +75,7 @@ public class Vector extends Point {
     }
 
     /** Normalize the current vector
-     * @return the normal vector which its size is equal to 1
+     * @return a normal vector of the current vector which its size is equal to 1
      * */
     public Vector normalize() {
         return new Vector(xyz.d1 / length(), xyz.d2 / length(), xyz.d3 / length());
