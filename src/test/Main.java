@@ -35,6 +35,7 @@ public final class Main {
         // test length..
         if (!Util.isZero(v1.lengthSquared() - 14))
             out.println("ERROR: lengthSquared() wrong value");
+
         if (!Util.isZero(new Vector(0, 3, 4).length() - 5))
             out.println("ERROR: length() wrong value");
 
@@ -45,14 +46,17 @@ public final class Main {
         } catch (IllegalArgumentException ignore) {} catch (Exception ignore) {
             out.println("ERROR: Vector + itself throws wrong exception");
         }
+
         try {
             v1.subtract(v1);
             out.println("ERROR: Vector - itself does not throw an exception");
         } catch (IllegalArgumentException ignore) {} catch (Exception ignore) {
             out.println("ERROR: Vector + itself throws wrong exception");
         }
+
         if (!v1.add(v2).equals(new Vector(-1, -2, -3)))
             out.println("ERROR: Point - Point does not work correctly");
+
         if (!v1.subtract(v2).equals(new Vector(3, 6, 9)))
             out.println("ERROR: Point - Point does not work correctly");
 
@@ -70,18 +74,22 @@ public final class Main {
         Vector vr = v1.crossProduct(v3);
         if (!Util.isZero(vr.length() - v1.length() * v3.length()))
             out.println("ERROR: crossProduct() wrong result length");
+
         if (!Util.isZero(vr.dotProduct(v1)) || !Util.isZero(vr.dotProduct(v3)))
             out.println("ERROR: crossProduct() result is not orthogonal to its operands");
 
         // test vector normalization vs vector length and cross-product
         Vector v = new Vector(1, 2, 3);
         Vector u = v.normalize();
+
         if (!Util.isZero(u.length() - 1))
             out.println("ERROR: the normalized vector is not a unit vector");
+
         try { // test that the vectors are co-lined
             v.crossProduct(u);
             out.println("ERROR: the normalized vector is not parallel to the original one");
         } catch (Exception e) {}
+
         if (v.dotProduct(u) < 0)
             out.println("ERROR: the normalized vector is opposite to the original one");
 
@@ -89,6 +97,7 @@ public final class Main {
         Point p1 = new Point(1, 2, 3);
         if (!(p1.add(new Vector(-1, -2, -3)).equals(new Point(0, 0, 0))))
             out.println("ERROR: Point + Vector does not work correctly");
+
         if (!new Vector(1, 1, 1).equals(new Point(2, 3, 4).subtract(p1)))
             out.println("ERROR: Point - Point does not work correctly");
 
