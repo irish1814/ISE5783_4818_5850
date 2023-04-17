@@ -40,7 +40,7 @@ public class Point {
                 throw new IllegalArgumentException("Subtraction of the same vector");
             }
         }
-        if (p.xyz.add(this.xyz).equals(Double3.ZERO)) {
+        if (p.xyz.subtract(this.xyz).equals(Double3.ZERO)) {
             throw new IllegalArgumentException("Subtraction of the a vector and a point equals to the ZERO vector");
         }
         return new Vector(this.xyz.subtract(p.xyz));

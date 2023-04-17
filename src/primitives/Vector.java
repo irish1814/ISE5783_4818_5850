@@ -73,7 +73,8 @@ public class Vector extends Point {
      * */
     public Vector crossProduct(Vector v) {
         // The vectors are a multiplication of a scalar k - (v1, v2, v3) = k(v4, v5, v6)
-        if(this.equals(v)) {
+        double k = this.xyz.d1 / v.xyz.d1;
+        if(this.xyz.reduce(k).equals(v.xyz) || v.xyz.reduce(k).equals(this.xyz)) {
             throw new IllegalArgumentException("The crossProduct of parallel vectors is 0.");
         }
         // Based on the matrix multiplication
@@ -92,13 +93,6 @@ public class Vector extends Point {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-
-
-        if (obj instanceof Vector v) {
-            // The vectors are a multiplication of a scalar k - (v1, v2, v3) = k(v4, v5, v6)
-            double k = this.xyz.d1 / v.xyz.d1;
-            return this.xyz.reduce(k).equals(v.xyz) || v.xyz.reduce(k).equals(this.xyz);
-        }
 
         if (obj instanceof Point other) {
             return this.xyz.equals(other.xyz);

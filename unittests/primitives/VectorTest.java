@@ -2,6 +2,7 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for primitives.Vector class
@@ -133,7 +134,7 @@ class VectorTest {
         assertEquals(new Vector(-1,0,0),v2.crossProduct(new Vector (0,1,5)));
 
         //obtuse angle vectors
-        assertEquals(new Vector(-1,0,0),v2.dotProduct(new Vector (0,1,-5)));
+        assertEquals(new Vector(-1,0,0),v2.crossProduct(new Vector (0,1,-5)));
     }
     @Test
     void length() {
