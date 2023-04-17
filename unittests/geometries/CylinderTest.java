@@ -26,9 +26,9 @@ class CylinderTest {
         assertEquals(new Vector(0,0,1),c.getNormal(new Point(0,2,0)));
         //check on the second base edge - should be like "base" normal
         assertEquals(new Vector(0,0,1),c.getNormal(new Point(2,0,5)));
-        //check on the center of the first base
+        //check in the center of the first base
         assertEquals(new Vector(0,0,1),c.getNormal(new Point(0,0,0)));
-        //check on the center of the second base
+        //check in the center of the second base
         assertEquals(new Vector(0,0,1),c.getNormal(new Point(0,0,5)));
 
     }

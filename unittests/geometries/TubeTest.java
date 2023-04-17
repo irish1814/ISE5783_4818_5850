@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /** Testing Tubes
  * @author Elad Radomski & Ishay Houri */
 class TubeTest {
-    /** Test method for {@link geometries.Tube#Tube}. */
+    /** Test method for {@link geometries.Tube#getNormal(Point)}. */
     @Test
     void getNormal() {
         // ============ Equivalence Partitions Tests ==============

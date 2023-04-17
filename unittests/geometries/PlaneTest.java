@@ -18,6 +18,8 @@ class PlaneTest {
         assertThrows(IllegalArgumentException.class, ()->new Plane(new Point(1,2,3),new Point(2,4,6),new Point(4,8,12)),
                 "ERROR: All of the points are on the same Vector - does not throw an exception");
     }
+
+    /** Test method for {@link geometries.Plane#getNormal(Point)}. */
     @Test
     void getNormal() {
         Plane p1 = new Plane(new Point(2,0,0),new Point(0,2,0),new Point(0,0,0));

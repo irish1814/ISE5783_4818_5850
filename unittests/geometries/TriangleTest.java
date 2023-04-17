@@ -18,6 +18,8 @@ class TriangleTest {
         assertThrows(IllegalArgumentException.class, ()->new Triangle(new Point(1,2,3),new Point(2,4,6),new Point(4,8,12)),
                 "ERROR: All of the points are on the same Vector - does not throw an exception");
     }
+
+    /** Test method for {@link geometries.Triangle#getNormal(Point)}. */
     @Test
     void getNormal() {
         // ============ Equivalence Partitions Tests ==============
