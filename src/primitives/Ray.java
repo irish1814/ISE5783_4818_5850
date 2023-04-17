@@ -14,7 +14,7 @@ public class Ray {
      * @param p The point that shows the beginning of the ray
      * @param v Vector that show the direction of the ray
      * */
-    Ray(Vector v, Point p) {
+    public Ray(Vector v, Point p) {
         // The given vector isn't normalized
         if(v.length() != 1) {
             direction = v.normalize();

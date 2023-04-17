@@ -17,8 +17,17 @@ public class Tube extends RadialGeometry {
         axisRay=ray;
     }
 
+    /** Method to get the Normal Vector at some Point in the Tube
+     * @param p the Point on the Tube to find the Normal to the point
+     * @return The Normal Vector to the point */
     @Override
     public Vector getNormal(Point p) {
-        return null;
+        //find the t length using the formula 𝒕 = 𝒗 ∙( 𝑷 − 𝑷0)
+        double t = axisRay.getDirection().dotProduct(p.subtract(axisRay.getP0()));
+        //find the O point using the formula 𝑶 = 𝑷𝟎 + (𝒕 ∙ 𝒗)
+        Point O = axisRay.getP0().add(axisRay.getDirection().scalarProduct(t));
+        //calculate the normal using the formula 𝒏 = 𝒏𝒐𝒓𝒎𝒂𝒍𝒊𝒛𝒆(𝑷 − 𝑶)
+        Vector n = p.subtract(O).normalize();
+        return  n;
     }
 }

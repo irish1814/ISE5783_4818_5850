@@ -18,7 +18,12 @@ public class Plane implements Geometry {
      * @param p3 A point in the plane
      * */
     Plane(Point p1, Point p2, Point p3) {
-        normal = null;
+        //𝑣1 = 𝑃2 − 𝑃1
+        Vector v1 = p2.subtract(p1);
+        //𝑣2 = 𝑃3 − 𝑃1
+        Vector v2 = p3.subtract(p1);
+        //calculate the normal using the formula 𝑛 = 𝑛𝑜𝑟𝑚𝑎𝑙𝑖𝑧𝑒(𝑣1 × 𝑣2)
+        normal = v1.crossProduct(v2).normalize();
         q0=p1;
     }
 

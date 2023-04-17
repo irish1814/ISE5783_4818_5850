@@ -52,6 +52,13 @@ public class Vector extends Point {
         return new Vector(v.xyz.add(this.xyz));
     }
 
+    /** Scalar multiplication between vector and double
+     * @param d is the number of the scalar multiplication
+     * @return the scalar multiplication based on the math formula - (x * d , y * d , z * d)
+     * */
+    public Vector scalarProduct(double d){
+        return new Vector(this.xyz.d1*d,this.xyz.d2*d,this.xyz.d3*d);
+    }
     /** Scalar multiplication between two vectors
      * @param v is the second vector of the scalar multiplication
      * @return the scalar multiplication based on the math formula - (x1 * x2 + y1 * y2 + z1 * z2)

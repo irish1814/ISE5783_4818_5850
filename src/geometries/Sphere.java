@@ -18,6 +18,13 @@ public class Sphere extends RadialGeometry{
         center=c;
     }
 
+    /** Method to get the Normal Vector at some Point in the Sphere
+     * @param p the Point on the Sphere to find the Normal on the point
+     * @return The Normal Vector to the point */
     @Override
-    public Vector getNormal(Point p) { return null; }
+    public Vector getNormal(Point p) {
+        //calculate n using the formula 𝒏 = 𝒏𝒐𝒓𝒎𝒂𝒍𝒊𝒛𝒆(𝑷 − 𝑶)
+        Vector n = p.subtract(center).normalize();
+        return n;
+    }
 }
