@@ -4,7 +4,7 @@ import primitives.Ray;
 import java.util.List;
 
 /**
- * An interface represents all the Intersectable shapes in the project
+ * An interface represents all the Intersect shapes in the project
  * @author Ishay Houri & Elad Radomski
  */
 public interface Intersectable {

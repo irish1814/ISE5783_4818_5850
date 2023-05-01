@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Vector;
 import primitives.Ray;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 /**
@@ -45,4 +47,7 @@ public class Tube extends RadialGeometry {
         //calculate the normal using the formula 𝒏 = 𝒏𝒐𝒓𝒎𝒂𝒍𝒊𝒛𝒆(𝑷 − 𝑶)
         return p.subtract(o).normalize();
     }
+
+    @Override
+    public List<Point> findIntsersections(Ray ray) { return null; }
 }
