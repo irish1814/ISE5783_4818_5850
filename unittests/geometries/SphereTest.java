@@ -25,8 +25,11 @@ class SphereTest {
         assertEquals(new Vector(0.5, 0.5, ((double) 1 / Math.sqrt(2))), s.getNormal(new Point(1, 1, Math.sqrt(2))));
     }
 
+    /**
+     * Test method for {@link geometries.Sphere#findIntsersections(Ray)}.
+     */
     @Test
-   public void findIntersection(Ray ray) {
+   public void findIntersections(Ray ray) {
         // ============ Equivalence Partitions Tests ==============
 
         Sphere s = new Sphere(1, new Point(0, 0, 0));
