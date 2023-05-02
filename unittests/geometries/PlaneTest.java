@@ -52,7 +52,7 @@ class PlaneTest {
      * Test method for {@link geometries.Plane#findIntsersections(Ray)}.
      */
     @Test
-    public void findIntersections(Ray ray) {
+    public void findIntersections() {
         Plane plane = new Plane(new Point(-3, 0, 0), new Point(0, -3, 0), new Point(3, 0, 0));
 
         // ============ Equivalence Partitions Tests ==============

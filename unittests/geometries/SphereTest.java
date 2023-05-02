@@ -29,7 +29,7 @@ class SphereTest {
      * Test method for {@link geometries.Sphere#findIntsersections(Ray)}.
      */
     @Test
-   public void findIntersections(Ray ray) {
+   public void findIntersections() {
         // ============ Equivalence Partitions Tests ==============
 
         Sphere s = new Sphere(1, new Point(0, 0, 0));
