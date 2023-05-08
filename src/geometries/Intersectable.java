@@ -14,5 +14,5 @@ public interface Intersectable {
      * @param ray the ray shoot from the camera and hot the shape
      * @return List of Points that intersects the shape
      */
-    public List<Point> findIntsersections(Ray ray);
+    public List<Point> findIntersections(Ray ray);
 }

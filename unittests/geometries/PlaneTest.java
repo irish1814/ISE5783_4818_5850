@@ -49,7 +49,7 @@ class PlaneTest {
     }
 
     /**
-     * Test method for {@link geometries.Plane#findIntsersections(Ray)}.
+     * Test method for {@link geometries.Plane#findIntersections(Ray)}.
      */
     @Test
     public void findIntersections() {
@@ -58,9 +58,12 @@ class PlaneTest {
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: ray is not parallel to the plane and has an intersection with the plane
+        Ray notParallelYes = new Ray(new Vector(0,0,1),new Point(0,0,0));
+        assertEquals(List.of(new Point(0, 0, 3)), plane.findIntersections(notParallelYes));
 
         // TC02: ray is not parallel to the plane and hasn't an intersection with the plane
-
+        Ray notParallelNo = new Ray(new Vector(0,3,-1),new Point(0,0,1));
+        assertNull(plane.findIntersections(notParallelNo));
 
         // =============== Boundary Values Tests ==================
 
@@ -68,24 +71,24 @@ class PlaneTest {
 
         // 1: ray is parallel and out of the plane
         Ray parallelOut = new Ray(new Vector(0, -2, 0), new Point(0, 0, 1));
-        assertNull(plane.findIntsersections(parallelOut));
+        assertNull(plane.findIntersections(parallelOut));
 
         // 2: ray is parallel and inside the plane
         Ray parallelIn = new Ray(new Vector(0, -3, 0), new Point(0, 0, 0));
-        assertNull(plane.findIntsersections(parallelIn));
+        assertNull(plane.findIntersections(parallelIn));
 
         // TC02: 3 cases when ray is vertical to the plane
 
         // 1: ray is vertical and start before the plane
         Ray verticalBefore = new Ray(new Vector(0, 0, 4), new Point(0, 0, -1));
-        assertEquals(List.of(new Point(0, 0, 0)), plane.findIntsersections(verticalBefore));
+        assertEquals(List.of(new Point(0, 0, 0)), plane.findIntersections(verticalBefore));
 
         // 2: ray is vertical and start in the plane
         Ray verticalIn = new Ray(new Vector(0, 0, 3), new Point(0, 0, 0));
-        assertNull(plane.findIntsersections(verticalIn));
+        assertNull(plane.findIntersections(verticalIn));
 
         // 3: ray is vertical and start after the plane
         Ray verticalAfter = new Ray(new Vector(0, 0, 3), new Point(0, 0, 0));
-        assertNull(plane.findIntsersections(verticalAfter));
+        assertNull(plane.findIntersections(verticalAfter));
     }
 }

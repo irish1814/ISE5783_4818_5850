@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Double3;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -40,7 +41,30 @@ public class Sphere extends RadialGeometry {
     }
 
     @Override
-    public List<Point> findIntsersections(Ray ray) {
+    public List<Point> findIntersections(Ray ray) {
+        //calculate the vector between the sphere center and the ray start point
+        Vector u = center.subtract(ray.getP0());
+        //calculate the length of tm line in the formula
+        Double tm = ray.getDirection().dotProduct(u);
+        //calculate the d length between the center of the sphere and the ray
+        Double d =Math.sqrt(u.lengthSquared() - (tm * tm));
+
+        //if d is less than sphere's radius - there is no intersections
+        if(d >= radius) return null;
+        //calculate the length of th line in the formula
+        Double th = Math.sqrt((radius*radius) - (d * d));
+        //calculate the intersections
+        double t1 = tm-th;
+        double t2 = tm+th;
+        Point p1 = ray.getDirection().scalarProduct(t1);
+        Point p2 = ray.getDirection().scalarProduct(t2);
+
+        if(t1>0 && t2>0)
+            return List.of(p1,p2);
+        if(t1<=0 && t2>0)
+            return List.of(p2);
+        if(t1>0 && t2<=0)
+            return List.of(p1);
         return null;
     }
 }
