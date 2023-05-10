@@ -67,7 +67,7 @@ public class Plane implements Geometry {
 
     @Override
     public List<Point> findIntersections(Ray ray){
-        //check if the ray is parallel to the plane
+        // check if the ray is parallel to the plane
         double nv = normal.dotProduct(ray.getDirection());
         if (isZero(nv))
             return null;
