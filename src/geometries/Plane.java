@@ -3,7 +3,7 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-
+import static primitives.Util.*;
 import java.util.List;
 
 /**
@@ -67,6 +67,14 @@ public class Plane implements Geometry {
 
     @Override
     public List<Point> findIntersections(Ray ray){
+        //check if the ray is parallel to the plane
+        double nv = normal.dotProduct(ray.getDirection());
+        if (isZero(nv))
+            return null;
+        //calculate the t value
+        double t = alignZero(normal.dotProduct(q0.subtract(ray.getP0())) / nv);
+        if(t>0)
+            return List.of(ray.getP0().add(ray.getDirection().scalarProduct(t)));
         return null;
     }
 }
