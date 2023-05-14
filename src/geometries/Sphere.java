@@ -53,16 +53,19 @@ public class Sphere extends RadialGeometry {
 
         //if d is less than sphere's radius - there is no intersections
         if(d >= radius) return null;
+
         //calculate the length of th line in the formula
         Double th = Math.sqrt((radius*radius) - (d * d));
+
         //calculate the intersections
         double t1 = alignZero(tm-th);
         double t2 = alignZero(tm+th);
-        Point p1 = ray.getP0().add(ray.getDirection().scalarProduct(t1));
-        Point p2 = ray.getP0().add(ray.getDirection().scalarProduct(t2));
+        Point p1 = ray.getPoint(t1);
+        Point p2 = ray.getPoint(t2);
+
         //check how many intersections found, and return the list:
         if(t1>0 && t2>0)
-            return List.of(p1,p2);
+            return List.of(p1, p2);
         if(t1<=0 && t2>0)
             return List.of(p2);
         if(t1>0 && t2<=0)

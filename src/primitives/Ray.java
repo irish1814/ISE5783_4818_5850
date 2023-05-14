@@ -45,7 +45,11 @@ public class Ray {
         return direction;
     }
 
-    public Point getPoint(double t) {
-        return null;
+    /**
+     * Returns a point on the ray with the value of vector multiplication by t starting from p0
+     * @return P0 + t * v
+     */
+    public Point getPoint(double t){
+        return p0.add(direction.scalarProduct(t));
     }
 }

@@ -112,52 +112,53 @@ class VectorTest {
 
         // =============== Boundary Values Tests ==================
 
-        //two vectors with same direction
+        // TC01: two vectors with same direction
         assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(new Vector(2, 4, 6)),
                 "ERROR: VectorXVector with same direction does not throw an exception");
 
-        //two vectors with opposite direction
+        // TC02: two vectors with opposite direction
         assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(new Vector(-2, -4, -6)),
                 "ERROR: VectorXVector with opposite direction does not throw an exception");
 
-        //same vectors with opposite direction
+        // TC03: same vectors with opposite direction
         assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(new Vector(-1, -2, -3)),
                 "ERROR: same vector with opposite direction does not throw an exception");
 
-        //same vector;
+        // TC04: same vector;
         assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(v1),
                 "ERROR: (Vector X itself) does not throw an exception");
 
-        //vertical vectors
+        // TC05: vertical vectors
         assertEquals(new Vector(-1, 0, 0), v2.crossProduct(new Vector(0, 1, 0)));
 
         // ============ Equivalence Partitions Tests ==============
 
-        //sharp angle vectors
+        // TC06: sharp angle vectors
         assertEquals(new Vector(-1, 0, 0), v2.crossProduct(new Vector(0, 1, 5)));
 
-        //obtuse angle vectors
+        // TC07: obtuse angle vectors
         assertEquals(new Vector(-1, 0, 0), v2.crossProduct(new Vector(0, 1, -5)));
     }
 
     @Test
     void length() {
-        // =============== Boundary Values Tests ==================
-
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: check if the length is as expected
         assertEquals(5, new Vector(0, 3, 4).length(), 0.00001);
     }
 
     @Test
     void lengthSquared() {
-        // =============== Boundary Values Tests ==================
-
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: check if the squared length is as expected
         assertEquals(14, new Vector(1, 2, 3).lengthSquared(), 0.00001);
     }
 
 
     @Test
     void normalize() {
-        // =============== Boundary Values Tests ==================
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: check if the normalize vector is as expected
         assertEquals(new Vector((1 / (Math.sqrt(14))), Math.sqrt((double) 2 / 7), ((double) 3 / Math.sqrt(14))), new Vector(1, 2, 3).normalize());
     }
 }

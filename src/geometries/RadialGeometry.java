@@ -1,7 +1,7 @@
 package geometries;
 
 /**
- * Aמ Abstract class that represents all the Radial Geometry shapes
+ * An Abstract class that represents all the Radial Geometry shapes
  *
  * @author Ishay Houri & Elad Radomski
  */

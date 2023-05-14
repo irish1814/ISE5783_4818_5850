@@ -1,11 +1,11 @@
-import geometries.Plane;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Vector;
 import primitives.Ray;
+import geometries.Sphere;
+import geometries.Geometries;
 
-import java.util.List;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class GeometriesTests {
@@ -18,6 +18,10 @@ public class GeometriesTests {
     void emptyCollectionElements() {
         // =============== Boundary Values Tests ==================
 
+        // TC01: empty list
+        Geometries geometries = new Geometries();
+        Ray ray = new Ray(new Vector(1, 0, 0), new Point(0, 1, 1));
+        assertNull(geometries.findIntersections(ray), "Empty list of objects");
     }
 
     /**
@@ -28,10 +32,14 @@ public class GeometriesTests {
     void noneIntersections() {
         // =============== BVA test ==================
 
-        // TC01: check if there is no intersection for the given plane and ray
-//        Plane plane = new Plane(new Point(-3, 0, 0), new Point(0, -3, 0), new Point(3, 0, 0));
-//        Ray notParallelNo = new Ray(new Vector(0,3,-1),new Point(0,0,1));
-//        assertNull(plane.findIntersections(notParallelNo));
+        // TC01: There are no intersections at all between all objects
+        Geometries geometries = new Geometries(
+                new Sphere(1, new Point(0, 0, -4)),
+                new Sphere(1, new Point(0, 0, 7))
+        );
+        Ray ray = new Ray(new Vector(1, 0, 0), new Point(0, 0, 1));
+        assertNull(geometries.findIntersections(ray), "Expected 0 intersection but " +
+                "found more");
     }
 
     /**
@@ -42,6 +50,14 @@ public class GeometriesTests {
     void oneIntersection() {
         // =============== BVA test ==================
 
+        // TC02: One shape is intersected
+        Geometries geometries = new Geometries(
+                new Sphere(1, new Point(0, 0, 4)),
+                new Sphere(1, new Point(0, 0, 7))
+        );
+        Ray ray = new Ray(new Vector(0, 0, -1), new Point(0, 0, 4.5));
+        assertEquals(1, geometries.findIntersections(ray).size(), "Expected 1 intersection but " +
+                "found less");
     }
 
     /**
@@ -52,6 +68,15 @@ public class GeometriesTests {
     void multipleIntersections() {
         // =============== EP test ==================
 
+        // TC03: Some of the shapes are intersected
+        Geometries geometries = new Geometries(
+                new Sphere(1,new Point(0, 0, 4)),
+                new Sphere(1,new Point(0, 0 ,7)),
+                new Sphere(1,new Point(100, 40, 30))
+        );
+        Ray ray = new Ray(new Vector(0, 0, 1), new Point(0, 0, -1));
+        assertEquals(4, geometries.findIntersections(ray).size(), "Expected 4 intersections between " +
+                "some of the objects but found less");
     }
 
     /**
@@ -62,5 +87,13 @@ public class GeometriesTests {
     void fullIntersections() {
         // =============== BVA test ==================
 
+        // TC04: All shapes are intersected
+        Geometries geometries = new Geometries(
+                new Sphere(1,new Point(0, 0, 4)),
+                new Sphere(1,new Point(0, 0 ,7))
+        );
+        Ray ray = new Ray(new Vector(0, 0, 1), new Point(0, 0, -1));
+        assertEquals(4, geometries.findIntersections(ray).size(), "Expected 4 intersections between " +
+                "all objects but found less");
     }
 }
