@@ -58,11 +58,11 @@ class PlaneTest {
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: ray is not parallel to the plane and has an intersection with the plane
-        Ray notParallelYes = new Ray(new Vector(0,0,1),new Point(0,0,0));
-        assertEquals(List.of(new Point(0, 0, 3)), plane.findIntersections(notParallelYes));
+        Ray notParallelYes = new Ray(new Vector(0,1,-1),new Point(0,0,3));
+        assertEquals(List.of(new Point(0, 3, 0)), plane.findIntersections(notParallelYes));
 
         // TC02: ray is not parallel to the plane and hasn't an intersection with the plane
-        Ray notParallelNo = new Ray(new Vector(0,3,-1),new Point(0,0,1));
+        Ray notParallelNo = new Ray(new Vector(0,3,1),new Point(0,0,1));
         assertNull(plane.findIntersections(notParallelNo));
 
         // =============== Boundary Values Tests ==================

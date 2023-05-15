@@ -70,7 +70,7 @@ class SphereTest {
         assertEquals(List.of(new Point(1, 0, 0)), s.findIntersections(rayBoundaryAfter));
 
         // 4: ray is starting in the boundary of the sphere and pass through the center
-        Ray rayStart = new Ray(v, new Point(1, 0, 0));
+        Ray rayStart = new Ray(v, new Point(-1, 0, 0));
         assertEquals(List.of(new Point(1, 0, 0)), s.findIntersections(rayStart));
 
         // 5: ray is after the sphere
@@ -83,25 +83,25 @@ class SphereTest {
 
         // TC02: The ray is passing through the sphere but not through the center
         // 1: The ray starts from the boundary and pass through the sphere
-        Ray oneIntersection = new Ray(new Vector(-1.49, 0, 0.87), new Point(1, 0, 0));
-        assertEquals(List.of(new Point(-0.49, 0, 0.83)), s.findIntersections(oneIntersection));
+        Ray oneIntersection = new Ray(new Vector(-1, 0, 1), new Point(1, 0, 0));
+        assertEquals(List.of(new Point(0, 0, 1)), s.findIntersections(oneIntersection));
 
         // 2: The ray starts from the boundary of the sphere but do not pass through
-        Ray zeroIntersection = new Ray(new Vector(-0.51, 0, 0.86), new Point(0.51, 0, 0.86));
+        Ray zeroIntersection = new Ray(new Vector(1, 0, 1), new Point(1, 0, 0));
         assertNull(s.findIntersections(zeroIntersection));
 
         // TC03: 3 cases when the ray is tangent to the sphere
-        Vector u = new Vector(-0.86, -0.17, 0.75);
+        Vector u = new Vector(1, 1, 0);
         // 1: ray starts before the sphere
-        Ray tangentBefore = new Ray(u, new Point(0.64, -0.17, 0.75));
+        Ray tangentBefore = new Ray(u, new Point(1, -1, 0));
         assertNull(s.findIntersections(tangentBefore));
 
         // 2: ray starts with a tangent to the sphere
-        Ray tangentStart = new Ray(u, new Point(1.5, 0, 0));
+        Ray tangentStart = new Ray(u, new Point(1, 0, 0));
         assertNull(s.findIntersections(tangentStart));
 
         // 3: ray starts after the sphere
-        Ray tangentAfter = new Ray(u, new Point(0.29, -0.24, 1.05));
+        Ray tangentAfter = new Ray(u, new Point(1, 1, 0));
         assertNull(s.findIntersections(tangentAfter));
 
         // TC04: ray is orthogonal to the normal that pass through the center of the sphere

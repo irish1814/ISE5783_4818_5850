@@ -67,11 +67,11 @@ class TriangleTest {
         // =============== Boundary Values Tests ==================
         // TC01: ray has an intersection with the triangle - on the edge
         Ray onEdgeRay = new Ray(new Vector(2,0,-2),new Point(0,0,2));
-        assertEquals(List.of(new Point(2, 0, 0)), triangle.findIntersections(onEdgeRay));
+        assertNull(triangle.findIntersections(onEdgeRay));
 
         // TC02: ray has an intersection with the triangle - on the vertex
         Ray onVertexRay = new Ray(new Vector(0,0,-2),new Point(0,0,2));
-        assertEquals(List.of(new Point(0, 0, 0)), triangle.findIntersections(onVertexRay));
+        assertNull(triangle.findIntersections(onVertexRay));
 
         // TC03: ray is not intersect with the triangle - outside on edge's continuation
         Ray outsideEdgeContinuationRay = new Ray(new Vector(0,2,-2),new Point(0,0,2));

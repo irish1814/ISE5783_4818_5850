@@ -44,6 +44,10 @@ public class Sphere extends RadialGeometry {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
+        //first - check if the ray start at the center of the sphere
+        if(ray.getP0().equals(center)){
+            return List.of(ray.getPoint(radius));
+        }
         //calculate the vector between the sphere center and the ray start point
         Vector u = center.subtract(ray.getP0());
         //calculate the length of tm line in the formula
@@ -60,16 +64,14 @@ public class Sphere extends RadialGeometry {
         //calculate the intersections
         double t1 = alignZero(tm-th);
         double t2 = alignZero(tm+th);
-        Point p1 = ray.getPoint(t1);
-        Point p2 = ray.getPoint(t2);
 
         //check how many intersections found, and return the list:
         if(t1>0 && t2>0)
-            return List.of(p1, p2);
+            return List.of(ray.getPoint(t1), ray.getPoint(t2));
         if(t1<=0 && t2>0)
-            return List.of(p2);
+            return List.of(ray.getPoint(t2));
         if(t1>0 && t2<=0)
-            return List.of(p1);
+            return List.of(ray.getPoint(t1));
         return null;
     }
 }
