@@ -104,6 +104,7 @@ public class Vector extends Point {
         return new Vector(xyz.reduce(length()));
     }
 
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

@@ -1,17 +1,17 @@
 package geometries;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static primitives.Util.isZero;
 
 import org.junit.jupiter.api.Test;
 
 import geometries.Polygon;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * Testing Polygons
@@ -90,5 +90,37 @@ public class PolygonTests {
         for (int i = 0; i < 3; ++i)
             assertTrue(isZero(result.dotProduct(pts[i].subtract(pts[i == 0 ? 3 : i - 1]))),
                     "Polygon's normal is not orthogonal to one of the edges");
+    }
+
+    @Test
+    public void findIntersections(){
+        Polygon polygon = new Polygon(new Point(1,2,0),new Point(-2,0,0),new Point(0,-2,0),
+                new Point(2,-2,0), new Point(3,0,0));
+
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: ray has an intersection with the triangle - inside the triangle
+        Ray insideRay = new Ray(new Vector(1,0,-2),new Point(0,0,2));
+        assertEquals(List.of(new Point(1, 0, 0)), polygon.findIntersections(insideRay));
+
+        // TC02: ray is not intersect with the triangle - outside against edge of the triangle
+        Ray outsideAgainstEdgeRay = new Ray(new Vector(-1,1,-1),new Point(0,0,1));
+        assertNull(polygon.findIntersections(outsideAgainstEdgeRay));
+
+        // TC03: ray is not intersect with the triangle - outside against vertex of the triangle
+        Ray outsideAgainstVertexRay = new Ray(new Vector(-3,0,-2),new Point(0,0,2));
+        assertNull(polygon.findIntersections(outsideAgainstVertexRay));
+
+        // =============== Boundary Values Tests ==================
+        // TC01: ray has an intersection with the triangle - on the edge
+        Ray onEdgeRay = new Ray(new Vector(2.5,-1,0),new Point(0,0,2));
+        assertNull(polygon.findIntersections(onEdgeRay));
+
+        // TC02: ray has an intersection with the triangle - on the vertex
+        Ray onVertexRay = new Ray(new Vector(3,0,-1),new Point(0,0,1));
+        assertNull(polygon.findIntersections(onVertexRay));
+
+        // TC03: ray is not intersect with the triangle - outside on edge's continuation
+        Ray outsideEdgeContinuationRay = new Ray(new Vector(0,3,-2),new Point(0,0,2));
+        assertNull(polygon.findIntersections(outsideEdgeContinuationRay));
     }
 }

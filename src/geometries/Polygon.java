@@ -4,7 +4,7 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 import primitives.Util;
-
+import static primitives.Util.*;
 import java.util.List;
 
 
@@ -94,6 +94,14 @@ public class Polygon implements Geometry {
 
     // Method to calculate the area of a triangle using cross product
     private static double calculateTriangleArea(Point p1, Point p2, Point p3) {
+        //check if the three points are collinear
+        // Calculate the direction vectors between the points
+        Vector v1 = p2.subtract(p1);
+        Vector v2 = p3.subtract(p1);
+        // Check if the vectors are same or opposite direction
+        if(Math.sqrt(v1.dotProduct(v2)*v1.dotProduct(v2)) == v1.length()*v2.length())
+            return -1;
+        //if not - return the triangle area
         return p2.subtract(p1).crossProduct(p3.subtract(p1)).length() / 2.0;
     }
     /**
@@ -115,6 +123,9 @@ public class Polygon implements Geometry {
             Point p3 = vertices.get(i+1);
 
             double triangleArea = calculateTriangleArea(p1, p2, p3);
+            //ensure that the point is not on edge's continuation
+            if(triangleArea == -1)
+                return null;
             totalArea += triangleArea;
         }
         //calculate the barycentric coords of th point - using each vertice of the polygon
@@ -134,16 +145,28 @@ public class Polygon implements Geometry {
         List<Point> planePoints = plane.findIntersections(ray);
         if(planePoints == null)
             return null;
+        Point intersectionPoint = planePoints.get(0);
+        //check if the intersection point is one of the polygon's points
+        for (Point p:vertices) {
+            if(p.equals(intersectionPoint))
+                return null;
+        }
 
         //if yes - check if the point is inside the polygon or not - using barycentric coords
-        Point intersectionPoint = planePoints.get(0);
         double[] barycentricCoords = getBarycentricCoords(intersectionPoint);
         //check if all barycentric coords are positive or zero
         for (Double d : barycentricCoords) {
             if(d < 0)
                 return null;
         }
-        //if all coords positive or zero - the point is inside the polygon
+        //check if the sum of all barycentric coords is no more than 1
+        double sum =0;
+        for (Double d : barycentricCoords) {
+            sum+=d;
+        }
+        if(sum>1)
+            return null;
+        //if all coords positive or zero and sum is no more then 1 - the point is inside the polygon
         return List.of(intersectionPoint);
     }
 }
