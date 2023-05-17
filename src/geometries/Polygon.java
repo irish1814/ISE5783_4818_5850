@@ -92,7 +92,7 @@ public class Polygon implements Geometry {
         return plane.getNormal();
     }
 
-    // Method to calculate the area of a triangle using cross product
+    // Method to calculate the area of a triangle
     private static double calculateTriangleArea(Point p1, Point p2, Point p3) {
         //check if the three points are collinear
         // Calculate the direction vectors between the points
