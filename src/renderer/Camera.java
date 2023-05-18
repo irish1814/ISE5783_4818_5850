@@ -63,6 +63,7 @@ public class Camera {
     }
 
     /**
+     * Set a new Distance to the ViewPlain
      * @param d Given distance
      *
      * @return camera object with the new distance
@@ -76,6 +77,8 @@ public class Camera {
     }
 
     /**
+     * Set a new Size to the ViewPlain
+     *
      * @param width Given width
      * @param height Given height
      *
