@@ -14,12 +14,8 @@ import static primitives.Util.isZero;
 
 public class Camera {
     private Point p0;
-    private Vector vUp;
-    private Vector vTo;
-    private Vector vRight;
-    private double width;
-    private double height;
-    private double distance;
+    private Vector vUp, vTo, vRight;
+    private double width, height, distance;
 
     public Point getP0() {
         return p0;
