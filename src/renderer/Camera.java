@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Vector;
 import primitives.Ray;
 
+import java.util.concurrent.ArrayBlockingQueue;
+
 import static primitives.Util.isZero;
 
 /**
@@ -102,6 +104,23 @@ public class Camera {
      * @return ray from the camera's lens to the center of a pixel in the view plane
      * */
     public Ray constructRay(int nX, int nY, int j, int i) {
-        return null;
+        // View-plain center point
+        Point center = p0.add(vTo.scalarProduct(distance));
+
+        // Get the height and width of each pixel
+        double rY = height / nY, rX = width / nX;
+        double xJ = -(j - (nX - 1) / 2d) * rX;
+        double yI = (i - (nX - 1) / 2d) * rY;
+
+        Point pixelCenter = center;
+        if(!isZero(xJ)) {
+            pixelCenter = center.add(vRight.scalarProduct(xJ));
+        }
+        if(!isZero(yI)) {
+            pixelCenter = center.add(vRight.scalarProduct(yI));
+        }
+
+        Vector viewPlainVector = pixelCenter.subtract(p0);
+        return new Ray(viewPlainVector, p0);
     }
 }
