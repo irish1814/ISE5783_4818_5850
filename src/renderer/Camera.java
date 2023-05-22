@@ -114,10 +114,10 @@ public class Camera {
 
         Point pixelCenter = center;
         if(!isZero(xJ)) {
-            pixelCenter = center.add(vRight.scalarProduct(xJ));
+            pixelCenter = pixelCenter.add(vRight.scalarProduct(xJ));
         }
         if(!isZero(yI)) {
-            pixelCenter = center.add(vUp.scalarProduct(yI));
+            pixelCenter = pixelCenter.add(vUp.scalarProduct(yI));
         }
 
         Vector viewPlainVector = pixelCenter.subtract(p0);

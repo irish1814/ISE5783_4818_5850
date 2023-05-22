@@ -64,7 +64,7 @@ public class IntegrationTest {
         Camera cam3 = new Camera(new Point(0, 0, 0.5), vTo, vUp);
         cam3.setVPSize(3, 3);
         cam3.setVPDistance(1);
-        assertEquals(18, countIntersections(cam3, new Sphere(2,
+        assertEquals(10, countIntersections(cam3, new Sphere(2,
                         new Point(0, 0, -2)), nX, nY), diffCount);
 
         // TC04: Sphere r = 4
@@ -111,7 +111,7 @@ public class IntegrationTest {
         Camera cam3 = new Camera(new Point(0, 0, 0.5), vTo, vUp);
         cam3.setVPSize(3, 3);
         cam3.setVPDistance(1);
-        assertEquals(9, countIntersections(cam3, new Plane(new Point(0, 0, -5),
+        assertEquals(6, countIntersections(cam3, new Plane(new Point(0, 0, -5),
                         new Vector(0, 6, -5)), nX, nY), diffCount);
     }
 
@@ -136,7 +136,7 @@ public class IntegrationTest {
         Camera cam2 = new Camera(new Point(0, 0, 0), vTo, vUp);
         cam2.setVPSize(3, 3);
         cam2.setVPDistance(1);
-        assertEquals(1,
+        assertEquals(2,
                 countIntersections(cam2, new Triangle(new Point(0, 20, -2), new Point(1, -1, -2),
                         new Point(-1, -1, -2)), nX, nY), diffCount);
     }
