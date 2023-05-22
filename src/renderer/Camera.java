@@ -109,15 +109,15 @@ public class Camera {
 
         // Get the height and width of each pixel
         double rY = height / nY, rX = width / nX;
-        double xJ = -(j - (nX - 1) / 2d) * rX;
-        double yI = (i - (nX - 1) / 2d) * rY;
+        double xJ = (j - (nX - 1) / 2d) * rX;
+        double yI = - (i - (nX - 1) / 2d) * rY;
 
         Point pixelCenter = center;
         if(!isZero(xJ)) {
             pixelCenter = center.add(vRight.scalarProduct(xJ));
         }
         if(!isZero(yI)) {
-            pixelCenter = center.add(vRight.scalarProduct(yI));
+            pixelCenter = center.add(vUp.scalarProduct(yI));
         }
 
         Vector viewPlainVector = pixelCenter.subtract(p0);

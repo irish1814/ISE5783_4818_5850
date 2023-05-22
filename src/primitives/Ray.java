@@ -45,6 +45,23 @@ public class Ray {
         return direction;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (obj instanceof Ray other) {
+            return this.p0.equals(other.p0) && this.direction.equals(other.direction);
+        }
+
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Ray = " + p0.toString() + " + " + direction.toString();
+    }
+
     /**
      * Returns a point on the ray with the value of vector multiplication by t starting from p0
      * @return P0 + t * v
