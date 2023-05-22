@@ -2,15 +2,12 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Testing primitives.Ray
  *
- * @author Shilo and Aviad
+ * @author Ishay Houri & Elad Radomski
  */
 class RayTest {
 
