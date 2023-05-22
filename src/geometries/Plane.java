@@ -29,7 +29,7 @@ public class Plane implements Geometry {
      * @param p2 A point in the plane
      * @param p3 A point in the plane
      */
-    Plane(Point p1, Point p2, Point p3) {
+    public Plane(Point p1, Point p2, Point p3) {
         //𝑣1 = 𝑃2 − 𝑃1
         Vector v1 = p2.subtract(p1);
         //𝑣2 = 𝑃3 − 𝑃1
@@ -45,7 +45,7 @@ public class Plane implements Geometry {
      * @param p A point in the plane
      * @param v the Normal Vector to the plane
      */
-    Plane(Point p, Vector v) {
+    public Plane(Point p, Vector v) {
         q0 = p;
         normal = v.normalize();
     }

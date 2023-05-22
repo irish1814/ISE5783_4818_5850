@@ -14,7 +14,7 @@ public class Ray {
     /**
      * A Vector that tells the direction of the ray
      */
-    private Vector direction;
+    private final Vector direction;
 
     /**
      * Constructor to initialize Ray based on Point and Vector

@@ -55,10 +55,9 @@ public class Camera {
         if (!isZero(up.dotProduct(to)))
             throw new IllegalArgumentException("Vectors aren't vertical");
 
-        vUp = up;
-        vUp.normalize();
-        vTo = to;
-        vRight = vUp.crossProduct(vTo);
+        vUp = up.normalize();
+        vTo = to.normalize();
+        vRight = vTo.crossProduct(vUp);
         p0 = p;
     }
 
