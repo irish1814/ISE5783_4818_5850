@@ -28,7 +28,7 @@ class ImageWriterTest {
         for (int i = 0; i < 500; i++) {
             for (int j = 0; j < 800; j++) {
                 /* since we know the grid is 10x16 and the picture is 500x800 pixels, we can calculate that
-                 * every square is 250 pixels (40000 / 160) which is 50x50 pixels. so every border of each
+                 * every square is 2500 pixels (400000 / 160) which is 50x50 pixels. so every border of each
                  * square is a multiple of 50 and that is what we check in the condition.
                  * */
                 // if it's the line of the view-plain print it red
