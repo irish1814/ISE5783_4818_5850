@@ -19,6 +19,7 @@ public class Camera {
     private Vector vUp, vTo, vRight;
     private double width, height, distance;
 
+    // ***************** Getters ********************** //
     public Point getP0() {
         return p0;
     }

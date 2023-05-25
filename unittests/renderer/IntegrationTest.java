@@ -84,6 +84,7 @@ public class IntegrationTest {
     }
 
     /**
+     * Test method for
      * {@link geometries.Plane#findIntersections(Ray)}.
      */
     @Test
@@ -116,6 +117,7 @@ public class IntegrationTest {
     }
 
     /**
+     * Test method for
      * {@link geometries.Triangle#findIntersections(Ray)}.
      */
     @Test
