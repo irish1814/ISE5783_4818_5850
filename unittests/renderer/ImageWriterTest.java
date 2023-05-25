@@ -27,8 +27,7 @@ class ImageWriterTest {
         ImageWriter imageWriter = new ImageWriter("test", 800, 500);
         for (int i = 0; i < 500; i++) {
             for (int j = 0; j < 800; j++) {
-                 /*
-                 * since we know the grid is 10x16 and the picture is 500x800 pixels, we can calculate that
+                /* since we know the grid is 10x16 and the picture is 500x800 pixels, we can calculate that
                  * every square is 250 pixels (40000 / 160) which is 50x50 pixels. so every border of each
                  * square is a multiple of 50 and that is what we check in the condition.
                  * */
