@@ -17,7 +17,7 @@ class ImageWriterTest {
     /**
      * Test method for
      * {@link renderer.ImageWriter#writeToImage()}.
-     * In this test we will create a grid of 10x16 red squares on a blue background of 800x500 pixels
+     * In this test we will create a grid of 10x16 blue squares on a black background of 800x500 pixels
      */
     @Test
     void writeToImageTest() {
