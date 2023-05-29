@@ -24,7 +24,7 @@ class PointTest {
         // TC01: Sum of two point
         assertEquals(new Point(1, 2, 4), p1.add(p2));
 
-        // Addition of a point and same vector equal Point(0, 0, 0)
+        // TC02: Addition of a point and same vector equal Point(0, 0, 0)
         assertEquals(new Point(0, 0, 0), p1.add(new Vector(-1, -2, -3)));
 
     }
