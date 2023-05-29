@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * Ray class represents ray in 3D
  *
@@ -68,5 +70,21 @@ public class Ray {
      */
     public Point getPoint(double t){
         return p0.add(direction.scalarProduct(t));
+    }
+
+    /**
+     * @param l list of random points
+     * @return the closest point to the P0 of the ray from a list of point
+     * */
+    public Point findClosestPoint(List<Point> l) {
+        Point closest = l.get(0);
+        double distance = closest.distance(p0);
+        for(Point p : l) {
+            if(p.distance(p0) < distance) {
+                closest = p;
+                distance = p.distance(p0);
+            }
+        }
+        return closest;
     }
 }

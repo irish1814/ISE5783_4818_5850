@@ -2,6 +2,9 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -19,5 +22,12 @@ class RayTest {
         Ray ray1 = new Ray(new Vector(1, 2, 3), new Point(1, 0, 0));
         Ray ray2 = new Ray(new Vector(1, 2, 3), new Point(1, 0, 0));
         assertEquals(ray1, ray2, "Equals doesn't work properly");
+    }
+
+    @Test
+    void findClosestPoint() {
+        Ray ray = new Ray(new Vector(1, 2, 3), new Point(1, 0, 0));
+        List<Point> l = new LinkedList<>();
+        assertNull(ray.findClosestPoint(l));
     }
 }
