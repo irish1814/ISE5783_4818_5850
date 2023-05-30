@@ -15,8 +15,15 @@ import static primitives.Util.isZero;
 
 public class Camera {
     private final Point p0;
-    private final Vector vUp, vTo, vRight;
-    private double width, height, distance;
+    private final Vector vUp;
+    private final Vector vTo;
+    private final Vector vRight;
+    private double width;
+    private double height;
+    private double distance;
+
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracer;
 
     /**
      * Constructs a new camera with the specified location, direction vectors.
@@ -62,6 +69,28 @@ public class Camera {
 
     public double getDistance() {
         return distance;
+    }
+
+    /**
+     * Set a new imageWriter to the camera object
+     *
+     * @param imageWriter new ImageWriter object
+     * @return camera object with the new imageWriter
+     */
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+
+    /**
+     * Set a new RayTracerBase to the camera object
+     *
+     * @param rayTracerBase new RayTracerBase object
+     * @return camera object with the new rayTracerBase
+     */
+    public Camera setRayTracerBase(RayTracerBase rayTracerBase) {
+        this.rayTracer = rayTracerBase;
+        return this;
     }
 
     /**

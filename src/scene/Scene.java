@@ -10,10 +10,11 @@ public class Scene {
     public Color background = Color.BLACK;
     public AmbientLight ambientLight = AmbientLight.NONE;
 
-    Scene(String sceneName) {
+    public Scene(String sceneName) {
         this.sceneName = sceneName;
     }
 
+    // *************** setters *************** //
     public Scene setBackground(Color b) {
         background = b;
         return this;

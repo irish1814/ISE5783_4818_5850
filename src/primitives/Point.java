@@ -8,7 +8,7 @@ package primitives;
 
 public class Point {
     protected final Double3 xyz;
-
+    public static final Point ZERO = new Point(0,0,0);
     /**
      * Constructor to initialize Double3 based object with its three number values
      *

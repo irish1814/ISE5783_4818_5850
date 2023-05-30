@@ -11,11 +11,11 @@ import primitives.Double3;
 
 public class AmbientLight {
     public static final AmbientLight NONE = new AmbientLight(Color.BLACK, Double3.ZERO);
-    private Color intensity;
+    private final Color intensity;
 
     /**
      * @param iA intensity of the light based on RGB values
-     * @param kA
+     * @param kA light attenuation coefficient
      */
     public AmbientLight(Color iA, Double3 kA) {
         intensity = iA.scale(kA);
