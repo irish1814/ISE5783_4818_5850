@@ -24,7 +24,7 @@ public class Scene {
         return this;
     }
 
-    public Scene setGeometries(Geometries g){
+    public Scene setGeometries(Geometries g) {
         geometries = g;
         return this;
     }

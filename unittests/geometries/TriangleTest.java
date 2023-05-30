@@ -49,32 +49,32 @@ class TriangleTest {
 
     @Test
     public void findIntersections() {
-        Triangle triangle = new Triangle(new Point(2,0,0),new Point(0,1,0),new Point(0,-1,0));
+        Triangle triangle = new Triangle(new Point(2, 0, 0), new Point(0, 1, 0), new Point(0, -1, 0));
 
         // ============ Equivalence Partitions Tests ==============
         // TC01: ray has an intersection with the triangle - inside the triangle
-        Ray insideRay = new Ray(new Vector(1,0,-2),new Point(0,0,2));
+        Ray insideRay = new Ray(new Vector(1, 0, -2), new Point(0, 0, 2));
         assertEquals(List.of(new Point(1, 0, 0)), triangle.findIntersections(insideRay));
 
         // TC02: ray is not intersect with the triangle - outside against edge of the triangle
-        Ray outsideAgainstEdgeRay = new Ray(new Vector(3,0,-2),new Point(0,0,2));
+        Ray outsideAgainstEdgeRay = new Ray(new Vector(3, 0, -2), new Point(0, 0, 2));
         assertNull(triangle.findIntersections(outsideAgainstEdgeRay));
 
         // TC03: ray is not intersect with the triangle - outside against vertex of the triangle
-        Ray outsideAgainstVertexRay = new Ray(new Vector(-1,0,-2),new Point(0,0,2));
+        Ray outsideAgainstVertexRay = new Ray(new Vector(-1, 0, -2), new Point(0, 0, 2));
         assertNull(triangle.findIntersections(outsideAgainstVertexRay));
 
         // =============== Boundary Values Tests ==================
         // TC01: ray has an intersection with the triangle - on the edge
-        Ray onEdgeRay = new Ray(new Vector(2,0,-2),new Point(0,0,2));
+        Ray onEdgeRay = new Ray(new Vector(2, 0, -2), new Point(0, 0, 2));
         assertNull(triangle.findIntersections(onEdgeRay));
 
         // TC02: ray has an intersection with the triangle - on the vertex
-        Ray onVertexRay = new Ray(new Vector(0,0,-2),new Point(0,0,2));
+        Ray onVertexRay = new Ray(new Vector(0, 0, -2), new Point(0, 0, 2));
         assertNull(triangle.findIntersections(onVertexRay));
 
         // TC03: ray is not intersect with the triangle - outside on edge's continuation
-        Ray outsideEdgeContinuationRay = new Ray(new Vector(0,2,-2),new Point(0,0,2));
+        Ray outsideEdgeContinuationRay = new Ray(new Vector(0, 2, -2), new Point(0, 0, 2));
         assertNull(triangle.findIntersections(outsideEdgeContinuationRay));
 
     }

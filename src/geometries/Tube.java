@@ -1,8 +1,8 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Vector;
 import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 
@@ -38,16 +38,16 @@ public class Tube extends RadialGeometry {
      */
     @Override
     public Vector getNormal(Point p) {
-        Point p0 = axisRay.getP0();
-        Vector dir = axisRay.getDirection();
         //find the t length using the formula 𝒕 = 𝒗 ∙( 𝑷 − 𝑷0)
-        double t = dir.dotProduct(p.subtract(p0));
+        double t = axisRay.getDirection().dotProduct(p.subtract(axisRay.getP0()));
         //find the O point using the formula 𝑶 = 𝑷𝟎 + (𝒕 ∙ 𝒗)
-        Point o = isZero(t) ? p0 : p0.add(dir.scalarProduct(t));
+        Point o = axisRay.getPoint(t);
         //calculate the normal using the formula 𝒏 = 𝒏𝒐𝒓𝒎𝒂𝒍𝒊𝒛𝒆(𝑷 − 𝑶)
         return p.subtract(o).normalize();
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) { return null; }
+    public List<Point> findIntersections(Ray ray) {
+        return null;
+    }
 }

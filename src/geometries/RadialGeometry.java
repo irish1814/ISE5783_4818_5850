@@ -10,6 +10,10 @@ public abstract class RadialGeometry implements Geometry {
      * The Radius of the Shape
      */
     protected double radius;
+    /**
+     * The squared Radius of the Shape
+     */
+    protected double radiusSquared;
 
     /**
      * Constructor to initialize Radial Shape based on Radius
@@ -18,5 +22,6 @@ public abstract class RadialGeometry implements Geometry {
      */
     public RadialGeometry(double r) {
         radius = r;
+        radiusSquared = r * r;
     }
 }

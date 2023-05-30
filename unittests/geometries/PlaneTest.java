@@ -2,8 +2,8 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.Point;
-import primitives.Vector;
 import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 
@@ -58,18 +58,18 @@ class PlaneTest {
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: ray is not parallel to the plane and has an intersection with the plane
-        Ray notParallelYes = new Ray(new Vector(0,1,-1),new Point(0,0,3));
+        Ray notParallelYes = new Ray(new Vector(0, 1, -1), new Point(0, 0, 3));
         assertEquals(List.of(new Point(0, 3, 0)), plane.findIntersections(notParallelYes));
 
         // TC02: ray is not parallel to the plane and hasn't an intersection with the plane
-        Ray notParallelNo = new Ray(new Vector(0,3,1),new Point(0,0,1));
+        Ray notParallelNo = new Ray(new Vector(0, 3, 1), new Point(0, 0, 1));
         assertNull(plane.findIntersections(notParallelNo));
 
         // =============== Boundary Values Tests ==================
 
-        // TC01: 2 cases when the ray is parallel to the plane
+        // 2 test cases when the ray is parallel to the plane
 
-        // 1: ray is parallel and out of the plane
+        // TC03: ray is parallel and out of the plane
         Ray parallelOut = new Ray(new Vector(0, -2, 0), new Point(0, 0, 1));
         assertNull(plane.findIntersections(parallelOut));
 
@@ -77,7 +77,7 @@ class PlaneTest {
         Ray parallelIn = new Ray(new Vector(0, -3, 0), new Point(0, 0, 0));
         assertNull(plane.findIntersections(parallelIn));
 
-        // TC02: 3 cases when ray is vertical to the plane
+        // 3 tets cases when ray is vertical to the plane
 
         // 1: ray is vertical and start before the plane
         Ray verticalBefore = new Ray(new Vector(0, 0, 4), new Point(0, 0, -1));
@@ -90,5 +90,9 @@ class PlaneTest {
         // 3: ray is vertical and start after the plane
         Ray verticalAfter = new Ray(new Vector(0, 0, 3), new Point(0, 0, 0));
         assertNull(plane.findIntersections(verticalAfter));
+
+        // TC19: ray starts at plane's ref.point
+        Ray rayFromQ0 = new Ray(new Vector(0, 3, 1), new Point(-3, 0, 0));
+        assertNull(plane.findIntersections(rayFromQ0));
     }
 }

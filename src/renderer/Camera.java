@@ -1,23 +1,38 @@
 package renderer;
 
 import primitives.Point;
-import primitives.Vector;
 import primitives.Ray;
+import primitives.Vector;
 
-import java.util.concurrent.ArrayBlockingQueue;
-
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
  * This class represents a camera in 3 dimension space
  *
  * @author Ishay Houri & Elad Radomski
- * */
+ */
 
 public class Camera {
-    private Point p0;
-    private Vector vUp, vTo, vRight;
+    private final Point p0;
+    private final Vector vUp, vTo, vRight;
     private double width, height, distance;
+
+    /**
+     * TODO
+     * @param to An horizontal vector
+     * @param up A vertical vector
+     */
+    public Camera(Point p, Vector to, Vector up) {
+        // Check if the two vectors are vertical to each other
+        if (!isZero(up.dotProduct(to)))
+            throw new IllegalArgumentException("Vectors aren't vertical");
+
+        vUp = up.normalize();
+        vTo = to.normalize();
+        vRight = vTo.crossProduct(vUp);
+        p0 = p;
+    }
 
     // ***************** Getters ********************** //
     public Point getP0() {
@@ -49,29 +64,13 @@ public class Camera {
     }
 
     /**
-     * @param to An horizontal vector
-     * @param up A vertical vector
-     * construct the vector vRight = up x to
-     * */
-    public Camera(Point p, Vector to, Vector up) {
-        // Check if the two vectors are vertical to each other
-        if (!isZero(up.dotProduct(to)))
-            throw new IllegalArgumentException("Vectors aren't vertical");
-
-        vUp = up.normalize();
-        vTo = to.normalize();
-        vRight = vTo.crossProduct(vUp);
-        p0 = p;
-    }
-
-    /**
      * Set a new Distance to the ViewPlain
-     * @param d Given distance
      *
+     * @param d Given distance
      * @return camera object with the new distance
-     * */
+     */
     public Camera setVPDistance(double d) {
-        if (distance < 0)
+        if (alignZero(d) <= 0)
             throw new IllegalArgumentException("Distance can't be negative");
 
         this.distance = d;
@@ -81,13 +80,12 @@ public class Camera {
     /**
      * Set a new Size to the ViewPlain
      *
-     * @param width Given width
+     * @param width  Given width
      * @param height Given height
-     *
      * @return camera object with the new sets of width and height
-     * */
+     */
     public Camera setVPSize(double width, double height) {
-        if (width < 0 || height < 0)
+        if (alignZero(width) <= 0 || alignZero(height) <= 0)
             throw new IllegalArgumentException("width and height can't be negative");
 
         this.width = width;
@@ -95,15 +93,14 @@ public class Camera {
         return this;
     }
 
-    /**
+    /**TODO
      *
-     * @param nX number of pixels in the rows
-     * @param nY number of pixels in the columns
+     * @param nX  number of pixels in the rows
+     * @param nY  number of pixels in the columns
      * @param i,j index of the pixel that the ray pass through, when 'i' is the index of nY
-     * and 'j' is the index of nX
-     *
+     *            and 'j' is the index of nX
      * @return ray from the camera's lens to the center of a pixel in the view plane
-     * */
+     */
     public Ray constructRay(int nX, int nY, int j, int i) {
         // View-plain center point
         Point center = p0.add(vTo.scalarProduct(distance));
@@ -111,17 +108,17 @@ public class Camera {
         // Get the height and width of each pixel
         double rY = height / nY, rX = width / nX;
         double xJ = (j - (nX - 1) / 2d) * rX;
-        double yI = - (i - (nX - 1) / 2d) * rY;
+        double yI = -(i - (nX - 1) / 2d) * rY;
 
         Point pixelCenter = center;
-        if(!isZero(xJ)) {
+        if (!isZero(xJ)) {
             pixelCenter = pixelCenter.add(vRight.scalarProduct(xJ));
         }
-        if(!isZero(yI)) {
+        if (!isZero(yI)) {
             pixelCenter = pixelCenter.add(vUp.scalarProduct(yI));
         }
 
-        Vector viewPlainVector = pixelCenter.subtract(p0);
-        return new Ray(viewPlainVector, p0);
+        Vector viewPlaneVector = pixelCenter.subtract(p0);
+        return new Ray(viewPlaneVector, p0);
     }
 }

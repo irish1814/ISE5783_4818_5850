@@ -3,8 +3,11 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-import static primitives.Util.*;
+
 import java.util.List;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * Plane class represents two-dimensional plane in 3D Cartesian coordinate
@@ -66,15 +69,14 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray){
+    public List<Point> findIntersections(Ray ray) {
         // check if the ray is parallel to the plane
         double nv = normal.dotProduct(ray.getDirection());
         if (isZero(nv))
             return null;
+
         //calculate the t value
-        double t = alignZero(normal.dotProduct(q0.subtract(ray.getP0())) / nv);
-        if(t>0)
-            return List.of(ray.getPoint(t));
-        return null;
+        double t =normal.dotProduct(q0.subtract(ray.getP0())) / nv;
+        return  alignZero(t) <= 0 ? null : List.of(ray.getPoint(t));
     }
 }

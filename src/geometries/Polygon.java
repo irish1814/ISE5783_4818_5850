@@ -2,9 +2,9 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
-import primitives.Vector;
 import primitives.Util;
-import static primitives.Util.*;
+import primitives.Vector;
+
 import java.util.List;
 
 
@@ -87,11 +87,6 @@ public class Polygon implements Geometry {
         }
     }
 
-    @Override
-    public Vector getNormal(Point point) {
-        return plane.getNormal();
-    }
-
     // Method to calculate the area of a triangle
     private static double calculateTriangleArea(Point p1, Point p2, Point p3) {
         //check if the three points are collinear
@@ -99,11 +94,17 @@ public class Polygon implements Geometry {
         Vector v1 = p2.subtract(p1);
         Vector v2 = p3.subtract(p1);
         // Check if the vectors are same or opposite direction
-        if(Math.sqrt(v1.dotProduct(v2)*v1.dotProduct(v2)) == v1.length()*v2.length())
+        if (Math.sqrt(v1.dotProduct(v2) * v1.dotProduct(v2)) == v1.length() * v2.length())
             return -1;
         //if not - return the triangle area
         return p2.subtract(p1).crossProduct(p3.subtract(p1)).length() / 2.0;
     }
+
+    @Override
+    public Vector getNormal(Point point) {
+        return plane.getNormal();
+    }
+
     /**
      * Method to calculate the Barycentric Coords of a point,
      * relative to the polygon
@@ -112,7 +113,7 @@ public class Polygon implements Geometry {
      * @return an Array of Doubles represents the Barycentric Coords
      * (number of coords is the number of polygon's vertices)
      */
-    private double[] getBarycentricCoords(Point p){
+    private double[] getBarycentricCoords(Point p) {
         // Array to store the barycentric coordinates
         double[] barycentricCoords = new double[size];
         //calculate the polygon total area
@@ -120,11 +121,11 @@ public class Polygon implements Geometry {
         for (int i = 1; i < size - 1; i++) {
             Point p1 = vertices.get(0);
             Point p2 = vertices.get(i);
-            Point p3 = vertices.get(i+1);
+            Point p3 = vertices.get(i + 1);
 
             double triangleArea = calculateTriangleArea(p1, p2, p3);
             //ensure that the point is not on edge's continuation
-            if(triangleArea == -1)
+            if (triangleArea == -1)
                 return null;
             totalArea += triangleArea;
         }
@@ -139,16 +140,17 @@ public class Polygon implements Geometry {
         }
         return barycentricCoords;
     }
+
     @Override
-    public List<Point> findIntersections(Ray ray){
+    public List<Point> findIntersections(Ray ray) {
         //check whether the ray intersect with the polygon's plane or not
         List<Point> planePoints = plane.findIntersections(ray);
-        if(planePoints == null)
+        if (planePoints == null)
             return null;
         Point intersectionPoint = planePoints.get(0);
         //check if the intersection point is one of the polygon's points
-        for (Point p:vertices) {
-            if(p.equals(intersectionPoint))
+        for (Point p : vertices) {
+            if (p.equals(intersectionPoint))
                 return null;
         }
 
@@ -156,15 +158,15 @@ public class Polygon implements Geometry {
         double[] barycentricCoords = getBarycentricCoords(intersectionPoint);
         //check if all barycentric coords are positive or zero
         for (Double d : barycentricCoords) {
-            if(d < 0)
+            if (d < 0)
                 return null;
         }
         //check if the sum of all barycentric coords is no more than 1
-        double sum =0;
+        double sum = 0;
         for (Double d : barycentricCoords) {
-            sum+=d;
+            sum += d;
         }
-        if(sum>1)
+        if (sum > 1)
             return null;
         //if all coords positive or zero and sum is no more then 1 - the point is inside the polygon
         return List.of(intersectionPoint);

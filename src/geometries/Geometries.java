@@ -3,43 +3,34 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Geometries implements Intersectable {
-    private List<Intersectable> geometries;
+    private final List<Intersectable> geometries = new LinkedList<>();
 
-    Geometries (){
-        geometries = new LinkedList<Intersectable>();
+    public Geometries() {
     }
+
     public Geometries(Intersectable... geometries) {
-        if (geometries != null) {
-            this.geometries = new ArrayList<>();
-            this.geometries.addAll(Arrays.asList(geometries));
-        }
+        add(geometries);
     }
 
-    public void add(Intersectable... geometries){
+    public void add(Intersectable... geometries) {
         if (geometries != null) {
             this.geometries.addAll(List.of(geometries));
         }
     }
-    public Iterator<Intersectable> iterator() {
-        return geometries.iterator();
-    }
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        boolean flag = false;
-        int count = 0;
         List<Point> intersections = null;
         for (Intersectable geometry : geometries) {
-            if (geometry.findIntersections(ray) != null) {
-                flag = true;
-                if (count == 0)
-                    intersections = new ArrayList<>();
-                count++;
-                if (flag)
-                    intersections.addAll(geometry.findIntersections(ray));
+            var tempList = geometry.findIntersections(ray);
+            if (tempList != null) {
+                if (intersections == null)
+                    intersections = new LinkedList<>();
+                intersections.addAll(tempList);
             }
         }
         return intersections;

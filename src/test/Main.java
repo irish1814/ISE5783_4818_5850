@@ -3,11 +3,11 @@
 
 package test;
 
-import static java.lang.System.out;
-
 import primitives.Point;
 import primitives.Util;
 import primitives.Vector;
+
+import static java.lang.System.out;
 
 /**
  * Test program for the 1st stage

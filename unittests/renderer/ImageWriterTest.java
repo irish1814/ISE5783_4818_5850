@@ -1,16 +1,13 @@
 package renderer;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
+import primitives.Color;
 
-import primitives.*;
-import renderer.Camera;
 /**
  * Testing ImageWriter Class by creating a 800x500 pixels picture
  * of a net of 10x16 squares with two colors
- * @author Elad & Ishay
  *
+ * @author Elad & Ishay
  */
 class ImageWriterTest {
 
@@ -35,7 +32,7 @@ class ImageWriterTest {
                 if (i % 50 == 0 || j % 50 == 0)
                     imageWriter.writePixel(j, i, Color.BLACK);
 
-                // if it's a square print it blue
+                    // if it's a square print it blue
                 else
                     imageWriter.writePixel(j, i, new Color(0, 0, 255));
 

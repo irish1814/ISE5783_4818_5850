@@ -2,6 +2,8 @@ package primitives;
 
 import java.util.List;
 
+import static primitives.Util.isZero;
+
 /**
  * Ray class represents ray in 3D
  *
@@ -65,24 +67,28 @@ public class Ray {
     }
 
     /**
-     * Returns a point on the ray with the value of vector multiplication by t starting from p0
-     * @return P0 + t * v
+     * Returns a point on the ray at a given distance from the ray head
+     * @param t TODO
+     * @return the point on the ray
      */
-    public Point getPoint(double t){
-        return p0.add(direction.scalarProduct(t));
+    public Point getPoint(double t) {
+        return isZero(t) ? p0 : p0.add(direction.scalarProduct(t));
     }
 
     /**
-     * @param l list of random points
+     * @param list list of random points
      * @return the closest point to the P0 of the ray from a list of point
-     * */
-    public Point findClosestPoint(List<Point> l) {
-        Point closest = l.get(0);
-        double distance = closest.distance(p0);
-        for(Point p : l) {
-            if(p.distance(p0) < distance) {
+     */
+    public Point findClosestPoint(List<Point> list) {
+        if (list == null) return null;
+
+        Point closest = null;
+        double minDistance = Double.POSITIVE_INFINITY;
+        for (Point p : list) {
+            double distance = p.distance(p0);
+            if (distance < minDistance) {
                 closest = p;
-                distance = p.distance(p0);
+                minDistance = distance;
             }
         }
         return closest;

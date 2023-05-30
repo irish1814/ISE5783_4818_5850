@@ -2,11 +2,13 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.Point;
-import primitives.Vector;
 import primitives.Ray;
+import primitives.Vector;
+
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Testing Spheres
@@ -29,13 +31,13 @@ class SphereTest {
      * Test method for {@link geometries.Sphere#findIntersections(Ray)}.
      */
     @Test
-   public void findIntersections() {
+    public void findIntersections() {
         // ============ Equivalence Partitions Tests ==============
 
         Sphere s = new Sphere(1, new Point(0, 0, 0));
 
         // a direction vector (constant in the tests) of the ray
-        Vector v  = new Vector(1, 0, 0);
+        Vector v = new Vector(1, 0, 0);
 
         // TC01: ray is out of the sphere - there is no intersections
         Ray r1 = new Ray(new Vector(2, 0, -2), new Point(0, 0, 2));
@@ -43,7 +45,7 @@ class SphereTest {
 
         // TC02: there is an intersection between the ray and the sphere when the ray is in front of the sphere
         Ray r2 = new Ray(v, new Point(-2, 0, 0));
-        assertEquals(List.of(new Point(-1, 0, 0), new Point(1, 0, 0)), s.findIntersections(r2));
+        assertEquals(List.of(new Point(1, 0, 0), new Point(-1, 0, 0)), s.findIntersections(r2));
 
         // TC03: there is an intersection between the ray and the sphere when the ray is in the sphere
         Ray r3 = new Ray(v, new Point(0, 0, 0));
@@ -79,7 +81,7 @@ class SphereTest {
 
         // 6: the ray has 2 intersections point
         Ray rayIntersection = new Ray(v, new Point(-2, 0, 0));
-        assertEquals(List.of(new Point(-1, 0, 0), new Point(1, 0, 0)), s.findIntersections(rayIntersection));
+        assertEquals(List.of( new Point(1, 0, 0), new Point(-1, 0, 0)), s.findIntersections(rayIntersection));
 
         // TC02: The ray is passing through the sphere but not through the center
         // 1: The ray starts from the boundary and pass through the sphere

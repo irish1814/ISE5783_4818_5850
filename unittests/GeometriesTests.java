@@ -1,9 +1,9 @@
+import geometries.Geometries;
+import geometries.Sphere;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
-import primitives.Vector;
 import primitives.Ray;
-import geometries.Sphere;
-import geometries.Geometries;
+import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -70,9 +70,9 @@ public class GeometriesTests {
 
         // TC03: Some of the shapes are intersected
         Geometries geometries = new Geometries(
-                new Sphere(1,new Point(0, 0, 4)),
-                new Sphere(1,new Point(0, 0 ,7)),
-                new Sphere(1,new Point(100, 40, 30))
+                new Sphere(1, new Point(0, 0, 4)),
+                new Sphere(1, new Point(0, 0, 7)),
+                new Sphere(1, new Point(100, 40, 30))
         );
         Ray ray = new Ray(new Vector(0, 0, 1), new Point(0, 0, -1));
         assertEquals(4, geometries.findIntersections(ray).size(), "Expected 4 intersections between " +
@@ -89,8 +89,8 @@ public class GeometriesTests {
 
         // TC04: All shapes are intersected
         Geometries geometries = new Geometries(
-                new Sphere(1,new Point(0, 0, 4)),
-                new Sphere(1,new Point(0, 0 ,7))
+                new Sphere(1, new Point(0, 0, 4)),
+                new Sphere(1, new Point(0, 0, 7))
         );
         Ray ray = new Ray(new Vector(0, 0, 1), new Point(0, 0, -1));
         assertEquals(4, geometries.findIntersections(ray).size(), "Expected 4 intersections between " +
