@@ -9,5 +9,9 @@ import primitives.Vector;
  * @author Ishay Houri & Elad Radomski
  */
 public interface Geometry extends Intersectable {
+    /**
+     * @param p Given point in a geometric shape
+     * @return Normal vector from the given point
+     * */
     public Vector getNormal(Point p);
 }

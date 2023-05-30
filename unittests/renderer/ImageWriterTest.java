@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 import primitives.Color;
 
 /**
- * Testing ImageWriter Class by creating a 800x500 pixels picture
- * of a net of 10x16 squares with two colors
+ * Testing ImageWriter Class by creating a XxY pixels picture
  *
  * @author Elad & Ishay
  */

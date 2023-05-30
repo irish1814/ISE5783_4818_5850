@@ -18,8 +18,9 @@ class TubeTest {
      */
     @Test
     void getNormal() {
-        // ============ Equivalence Partitions Tests ==============
         Tube t1 = new Tube(2, new Ray(new Vector(0, 0, 1), new Point(0, 0, 0)));
+
+        // ============ Equivalence Partitions Tests ==============
 
         // TC01: check normal at point (-2,0,1)
         assertEquals(new Vector(-1, 0, 0), t1.getNormal(new Point(-2, 0, 1)));

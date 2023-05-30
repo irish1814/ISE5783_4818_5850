@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Testing Triangles
+ *  * Unit tests for geometries.Triangle class
  *
  * @author Elad Radomski & Ishay Houri
  */
@@ -22,9 +22,13 @@ class TriangleTest {
     @Test
     public void testConstructor() {
         // =============== Boundary Values Tests ==================
-        assertThrows(IllegalArgumentException.class, () -> new Triangle(new Point(1, 2, 3), new Point(1, 2, 3), new Point(1, 5, 8)),
-                "ERROR: Two of the points are the same - does not throw an exception");
-        assertThrows(IllegalArgumentException.class, () -> new Triangle(new Point(1, 2, 3), new Point(2, 4, 6), new Point(4, 8, 12)),
+
+        // TC01: trying to create a plane with 2 identical points
+        assertThrows(IllegalArgumentException.class, () -> new Triangle(new Point(1, 2, 3), new Point(1, 2, 3),
+                        new Point(1, 5, 8)), "ERROR: Two of the points are the same - does not throw an exception");
+
+        // TC02: trying to create a plane with 3 identical points
+        assertThrows(IllegalArgumentException.class, () -> new Triangle(new Point(1, 2, 3), new Point(2, 4, 6),  new Point(4, 8, 12)),
                 "ERROR: All of the points are on the same Vector - does not throw an exception");
     }
 
@@ -33,17 +37,19 @@ class TriangleTest {
      */
     @Test
     void getNormal() {
-        // ============ Equivalence Partitions Tests ==============
         Triangle t1 = new Triangle(new Point(2, 0, 0), new Point(0, 2, 0), new Point(0, 0, 0));
-
-        // ============ Equivalence Partitions Tests ==============
-        // ensure there are no exceptions
-        assertDoesNotThrow(() -> t1.getNormal(new Point(0, 2, 0)), "");
         // generate the test result
         Vector result = t1.getNormal(new Point(0, 0, 0));
-        // ensure |result| = 1
+
+        // ============ Equivalence Partitions Tests ==============
+
+        // TC01: check if there are no exceptions
+        assertDoesNotThrow(() -> t1.getNormal(new Point(0, 2, 0)), "");
+
+        // TC02: check if the normal vector length = 1
         assertEquals(1, result.length(), 0.00000001, "Plane's normal is not a unit vector");
-        // calculate the result
+
+        // TC03: check if the result is as expected
         assertEquals(new Vector(0, 0, 1), result);
     }
 
@@ -52,6 +58,7 @@ class TriangleTest {
         Triangle triangle = new Triangle(new Point(2, 0, 0), new Point(0, 1, 0), new Point(0, -1, 0));
 
         // ============ Equivalence Partitions Tests ==============
+
         // TC01: ray has an intersection with the triangle - inside the triangle
         Ray insideRay = new Ray(new Vector(1, 0, -2), new Point(0, 0, 2));
         assertEquals(List.of(new Point(1, 0, 0)), triangle.findIntersections(insideRay));
@@ -65,6 +72,7 @@ class TriangleTest {
         assertNull(triangle.findIntersections(outsideAgainstVertexRay));
 
         // =============== Boundary Values Tests ==================
+
         // TC01: ray has an intersection with the triangle - on the edge
         Ray onEdgeRay = new Ray(new Vector(2, 0, -2), new Point(0, 0, 2));
         assertNull(triangle.findIntersections(onEdgeRay));
@@ -76,6 +84,5 @@ class TriangleTest {
         // TC03: ray is not intersect with the triangle - outside on edge's continuation
         Ray outsideEdgeContinuationRay = new Ray(new Vector(0, 2, -2), new Point(0, 0, 2));
         assertNull(triangle.findIntersections(outsideEdgeContinuationRay));
-
     }
 }

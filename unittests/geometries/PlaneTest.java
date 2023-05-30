@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Testing Planes
+ * Unit tests for geometries.Plane class
  *
  * @author Elad Radomski & Ishay Houri
  */
@@ -22,10 +22,14 @@ class PlaneTest {
     @Test
     public void testConstructor() {
         // =============== Boundary Values Tests ==================
-        assertThrows(IllegalArgumentException.class, () -> new Plane(new Point(1, 2, 3), new Point(1, 2, 3), new Point(1, 5, 8)),
-                "ERROR: Two of the points are the same - does not throw an exception");
-        assertThrows(IllegalArgumentException.class, () -> new Plane(new Point(1, 2, 3), new Point(2, 4, 6), new Point(4, 8, 12)),
-                "ERROR: All of the points are on the same Vector - does not throw an exception");
+
+        // TC01: trying to create a plane with 2 identical points
+        assertThrows(IllegalArgumentException.class, () -> new Plane(new Point(1, 2, 3), new Point(1, 2, 3),
+                        new Point(1, 5, 8)), "ERROR: Two of the points are the same - does not throw an exception");
+
+        // TC02: trying to create a plane with 3 identical points
+        assertThrows(IllegalArgumentException.class, () -> new Plane(new Point(1, 2, 3), new Point(2, 4, 6),
+                        new Point(4, 8, 12)), "ERROR: All of the points are on the same Vector - does not throw an exception");
     }
 
     /**
@@ -73,25 +77,25 @@ class PlaneTest {
         Ray parallelOut = new Ray(new Vector(0, -2, 0), new Point(0, 0, 1));
         assertNull(plane.findIntersections(parallelOut));
 
-        // 2: ray is parallel and inside the plane
+        // TC04: ray is parallel and inside the plane
         Ray parallelIn = new Ray(new Vector(0, -3, 0), new Point(0, 0, 0));
         assertNull(plane.findIntersections(parallelIn));
 
-        // 3 tets cases when ray is vertical to the plane
+        // 3 tests cases when ray is vertical to the plane
 
-        // 1: ray is vertical and start before the plane
+        // TC05: ray is vertical and start before the plane
         Ray verticalBefore = new Ray(new Vector(0, 0, 4), new Point(0, 0, -1));
         assertEquals(List.of(new Point(0, 0, 0)), plane.findIntersections(verticalBefore));
 
-        // 2: ray is vertical and start in the plane
+        // TC06: ray is vertical and start in the plane
         Ray verticalIn = new Ray(new Vector(0, 0, 3), new Point(0, 0, 0));
         assertNull(plane.findIntersections(verticalIn));
 
-        // 3: ray is vertical and start after the plane
+        // TC07: ray is vertical and start after the plane
         Ray verticalAfter = new Ray(new Vector(0, 0, 3), new Point(0, 0, 0));
         assertNull(plane.findIntersections(verticalAfter));
 
-        // TC19: ray starts at plane's ref.point
+        // TC08: ray starts at plane's ref.point
         Ray rayFromQ0 = new Ray(new Vector(0, 3, 1), new Point(-3, 0, 0));
         assertNull(plane.findIntersections(rayFromQ0));
     }

@@ -19,7 +19,8 @@ public class Camera {
     private double width, height, distance;
 
     /**
-     * TODO
+     * Constructs a new camera with the specified location, direction vectors.
+     *
      * @param to An horizontal vector
      * @param up A vertical vector
      */
@@ -93,7 +94,8 @@ public class Camera {
         return this;
     }
 
-    /**TODO
+    /**
+     * Constructs a ray from the camera to a specific point in the view plane.
      *
      * @param nX  number of pixels in the rows
      * @param nY  number of pixels in the columns

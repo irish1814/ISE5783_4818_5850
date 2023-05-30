@@ -13,6 +13,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Testing intersection between camera class and geometric objects
+ *
+ * @author Elad & Ishay
+ */
 public class IntegrationTest {
     /**
      * Calculates number of intersections between a geometric form and rays from the camera.

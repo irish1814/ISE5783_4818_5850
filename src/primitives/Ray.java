@@ -68,7 +68,7 @@ public class Ray {
 
     /**
      * Returns a point on the ray at a given distance from the ray head
-     * @param t TODO
+     * @param t non-negative scalar determinate the length of the vector
      * @return the point on the ray
      */
     public Point getPoint(double t) {
@@ -76,6 +76,8 @@ public class Ray {
     }
 
     /**
+     * Finds the point in the given list that is closest to the starting point of the ray.
+     *
      * @param list list of random points
      * @return the closest point to the P0 of the ray from a list of point
      */

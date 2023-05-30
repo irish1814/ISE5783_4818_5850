@@ -8,6 +8,11 @@ import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * Testing Geometries class
+ *
+ * @author Elad & Ishay
+ */
 public class GeometriesTests {
 
     /**
@@ -50,7 +55,7 @@ public class GeometriesTests {
     void oneIntersection() {
         // =============== BVA test ==================
 
-        // TC02: One shape is intersected
+        // TC01: One shape is intersected
         Geometries geometries = new Geometries(
                 new Sphere(1, new Point(0, 0, 4)),
                 new Sphere(1, new Point(0, 0, 7))
@@ -68,7 +73,7 @@ public class GeometriesTests {
     void multipleIntersections() {
         // =============== EP test ==================
 
-        // TC03: Some of the shapes are intersected
+        // TC01: Some of the shapes are intersected
         Geometries geometries = new Geometries(
                 new Sphere(1, new Point(0, 0, 4)),
                 new Sphere(1, new Point(0, 0, 7)),
@@ -87,7 +92,7 @@ public class GeometriesTests {
     void fullIntersections() {
         // =============== BVA test ==================
 
-        // TC04: All shapes are intersected
+        // TC01: All shapes are intersected
         Geometries geometries = new Geometries(
                 new Sphere(1, new Point(0, 0, 4)),
                 new Sphere(1, new Point(0, 0, 7))

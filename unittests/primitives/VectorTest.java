@@ -11,104 +11,82 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Elad Radomski & Ishay Houri
  */
 class VectorTest {
+
     /**
-     * Test method for {@link primitives.Vector#crossProduct(primitives.Vector)}.
+     * Test method for {@link primitives.Vector#add(Point)}.
      */
     @Test
-    void add() {
+    void testAdd() {
         Vector v1 = new Vector(1, 2, 3);
-        Vector v2 = new Vector(0, 0, 1);
+
+        // ============ Equivalence Partitions Tests ==============
+
+        // TC01: check if Add function works
+        assertEquals(new Vector(-1, -2, -3), v1.add(new Vector(-2, -4, -6)), "add function dose not work correctly");
 
         // =============== Boundary Values Tests ==================
 
-        // two vectors with same direction
-        assertEquals(new Vector(3, 6, 9), v1.add(new Vector(2, 4, 6)));
-
-        // two vectors with opposite direction
-        assertEquals(new Vector(-1, -2, -3), v1.add(new Vector(-2, -4, -6)));
-
-        // same vector
-        assertEquals(new Vector(2, 4, 6), v1.add(v1));
-
-        //vertical vectors
-        assertEquals(new Vector(0, 1, 1), v2.add(new Vector(0, 1, 0)));
-
-        // ============ Equivalence Partitions Tests ==============
-        //sharp angle vectors
-        assertEquals(new Vector(0, 1, 6), v2.add(new Vector(0, 1, 5)));
-
-        //obtuse angle vectors
-        assertEquals(new Vector(0, 1, -4), v2.add(new Vector(0, 1, -5)));
-
-        // same vectors with opposite direction
+        // TC01: addition of the same opposite vector does not throw a zero vector error
         assertThrows(IllegalArgumentException.class, () -> v1.add(new Vector(-1, -2, -3)),
-                "ERROR: Vector + -itself does not throw an exception");
-
+                "addition of the same opposite vector does not throw a zero vector error");
     }
 
+    /**
+     * Test method for {@link primitives.Vector#subtract(Point)}.
+     */
     @Test
-    void subtract() {
+    void testSubtract() {
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(0, 0, 1);
 
-        // =============== Boundary Values Tests ==================
-        //two vectors with same direction
-        assertEquals(new Vector(-1, -2, -3), v1.subtract(new Vector(2, 4, 6)));
-
-        //two vectors with opposite direction
-        assertEquals(new Vector(3, 6, 9), v1.subtract(new Vector(-2, -4, -6)));
-
-        //same vectors with opposite direction
-        assertEquals(new Vector(2, 4, 6), v1.subtract(new Vector(-1, -2, -3)));
-
-        //vertical vectors
-        assertEquals(new Vector(0, -1, 1), v2.subtract(new Vector(0, 1, 0)));
-
         // ============ Equivalence Partitions Tests ==============
-        //sharp angle vectors
-        assertEquals(new Vector(0, -1, -4), v2.subtract(new Vector(0, 1, 5)));
 
-        //obtuse angle vectors
-        assertEquals(new Vector(0, -1, 6), v2.subtract(new Vector(0, 1, -5)));
+        // TC01: check if subtract function works
+        assertEquals(new Vector(1, 2, 2), v1.subtract(v2));
 
-        //same vector
+        // =============== Boundary Values Tests ==================
+
+        // TC01: subtraction of the same vector does not throw zero vector error
         assertThrows(IllegalArgumentException.class, () -> v1.subtract(v1),
                 "ERROR: Vector - itself does not throw an exception");
     }
 
+    /**
+     * Test method for {@link primitives.Vector#dotProduct(Vector)}.
+     */
     @Test
     void dotProduct() {
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(0, 0, 1);
 
-        // =============== Boundary Values Tests ==================
-        //two vectors with same direction
-        assertEquals(28, v1.dotProduct(new Vector(2, 4, 6)), 0.00001);
-
-        //two vectors with opposite direction
-        assertEquals(-28, v1.dotProduct(new Vector(-2, -4, -6)), 0.00001);
-
-        //same vectors with opposite direction
-        assertEquals(-14, v1.dotProduct(new Vector(-1, -2, -3)), 0.00001);
-
-        //same vector
-        assertEquals(14, v1.dotProduct(v1), 0.00001);
-
-        //vertical vectors
-        assertEquals(0, v2.dotProduct(new Vector(0, 1, 0)), 0.00001);
-
         // ============ Equivalence Partitions Tests ==============
-        //sharp angle vectors
-        assertEquals(5, v2.dotProduct(new Vector(0, 1, 5)), 0.00001);
 
-        //obtuse angle vectors
-        assertEquals(-5, v2.dotProduct(new Vector(0, 1, -5)), 0.00001);
+        // TC01: check if the function works
+        assertEquals(3, v1.dotProduct(v2),
+                "dotProduct does not work correctly");
+
+        // =============== Boundary Values Tests ==================
+
+        // TC01: dot product between orthogonal vector (V = kU | k ∈ R)
+        assertEquals(0, v1.dotProduct(new Vector(0, 3, -2)),
+                "dotProduct between orthogonal vectors is not 0");
     }
 
+    /**
+     * Test method for {@link primitives.Vector#crossProduct(Vector)}.
+     */
     @Test
     void crossProduct() {
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(0, 0, 1);
+
+        // ============ Equivalence Partitions Tests ==============
+
+        // TC01: cross product with a vector with a less than 90-degree angle
+        assertEquals(new Vector(-1, 0, 0), v2.crossProduct(new Vector(0, 1, 5)));
+
+        // TC02: cross product with a vector with a greater than 90-degree angle
+        assertEquals(new Vector(-1, 0, 0), v2.crossProduct(new Vector(0, 1, -5)));
 
         // =============== Boundary Values Tests ==================
 
@@ -124,41 +102,73 @@ class VectorTest {
         assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(new Vector(-1, -2, -3)),
                 "ERROR: same vector with opposite direction does not throw an exception");
 
-        // TC04: same vector;
+        // TC04: cross product with the same vector
         assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(v1),
-                "ERROR: (Vector X itself) does not throw an exception");
+                "ERROR: Vector x itself does not throw an exception");
 
         // TC05: vertical vectors
         assertEquals(new Vector(-1, 0, 0), v2.crossProduct(new Vector(0, 1, 0)));
+    }
+
+    /**
+     * Test method for {@link primitives.Vector#scalarProduct(double)}.
+     * */
+    @Test
+    void scalarProductTest() {
+        Vector v1 = new Vector(1, 2, 3);
 
         // ============ Equivalence Partitions Tests ==============
 
-        // TC06: sharp angle vectors
-        assertEquals(new Vector(-1, 0, 0), v2.crossProduct(new Vector(0, 1, 5)));
+        // TC01: check if the scalarProduct function works
+        assertEquals(new Vector(2, 4, 6), v1.scalarProduct(2),
+                "scalarProduct function does not work correctly");
 
-        // TC07: obtuse angle vectors
-        assertEquals(new Vector(-1, 0, 0), v2.crossProduct(new Vector(0, 1, -5)));
+        // =============== Boundary Values Tests ==================
+
+        // TC01: a scalar multiplication by 0 will create (0, 0, 0) vector
+        assertThrows(IllegalArgumentException.class, () -> v1.scalarProduct(0),
+                "scalar product with 0 value are forbidden");
     }
 
+    /**
+     * Test method for {@link primitives.Vector#length()}.
+     */
     @Test
     void length() {
         // ============ Equivalence Partitions Tests ==============
+
         // TC01: check if the length is as expected
         assertEquals(5, new Vector(0, 3, 4).length(), 0.00001);
     }
 
+    /**
+     * Test method for {@link primitives.Vector#lengthSquared()}.
+     */
     @Test
     void lengthSquared() {
         // ============ Equivalence Partitions Tests ==============
+
         // TC01: check if the squared length is as expected
         assertEquals(14, new Vector(1, 2, 3).lengthSquared(), 0.00001);
     }
 
-
+    /**
+     * Test method for {@link primitives.Vector#normalize()}.
+     */
     @Test
     void normalize() {
+        Vector v1 = new Vector(1, 2, 3);
+        Vector u = v1.normalize();
+
         // ============ Equivalence Partitions Tests ==============
+
         // TC01: check if the normalize vector is as expected
-        assertEquals(new Vector((1 / (Math.sqrt(14))), Math.sqrt((double) 2 / 7), ((double) 3 / Math.sqrt(14))), new Vector(1, 2, 3).normalize());
+        assertEquals(1, u.length(), 0.00000001, "The normalized vector is not a unit vector");
+
+        // =============== Boundary Values Tests ==================
+
+        // TC01: cross product between parallel vector does not throw an exception
+        assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(u),
+                "The normalized vector is not parallel to the original one");
     }
 }
