@@ -10,7 +10,7 @@ import scene.Scene;
  * @author Ishay Houri & Elad Radomski
  */
 public abstract class RayTracerBase {
-    protected Scene scene;
+    protected final Scene scene;
 
     /**
      * Creates a new instance of the RayTracerBase class with the specified scene.
@@ -27,5 +27,5 @@ public abstract class RayTracerBase {
      * @param ray the ray to trace
      * @return the color of the intersection point, or null if there are any intersection
      */
-    public abstract Color traceRay(Ray ray);
+    abstract Color traceRay(Ray ray);
 }

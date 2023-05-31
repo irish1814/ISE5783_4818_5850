@@ -81,27 +81,7 @@ public class Camera {
         return rayTracer;
     }
 
-    /**
-     * Set a new imageWriter to the camera object
-     *
-     * @param imageWriter new ImageWriter object
-     * @return camera object with the new imageWriter
-     */
-    public Camera setImageWriter(ImageWriter imageWriter) {
-        this.imageWriter = imageWriter;
-        return this;
-    }
-
-    /**
-     * Set a new RayTracerBase to the camera object
-     *
-     * @param rayTracer new RayTracerBase object
-     * @return camera object with the new rayTracerBase
-     */
-    public Camera setRayTracerBase(RayTracerBase rayTracer) {
-        this.rayTracer = rayTracer;
-        return this;
-    }
+    // ***************** Setters ********************** //
 
     /**
      * Set a new Distance to the ViewPlain
@@ -134,6 +114,28 @@ public class Camera {
     }
 
     /**
+     * Set a new rayTracer value
+     *
+     * @param rayTracer The ray tracer to use.
+     * @return camera object with the new sets of rayTracer values.
+     */
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        this.rayTracer = rayTracer;
+        return this;
+    }
+
+    /**
+     * Set a new imageWriter to the camera object
+     *
+     * @param imageWriter new ImageWriter object
+     * @return camera object with the new imageWriter
+     */
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+
+    /**
      * Constructs a ray from the camera to a specific point in the view plane.
      *
      * @param nX  number of pixels in the rows
@@ -159,26 +161,42 @@ public class Camera {
             pixelCenter = pixelCenter.add(vUp.scalarProduct(yI));
         }
 
-        Vector viewPlaneVector = pixelCenter.subtract(p0);
-        return new Ray(viewPlaneVector, p0);
+        return new Ray(pixelCenter.subtract(p0), p0);
     }
 
     /**
-     * This function checks if all the fields are not empty
+     * This function iterate over each pixel and cast a ray from that pixel
+     *
      * @throws MissingResourceException The first string will be the message of what's wrong
      * the second message will be the class name
-     *
+     * @return Camera object
      * */
-    void renderImage() {
-        if (imageWriter == null) {
-            throw new MissingResourceException("One of the field is not set", ImageWriter.class.getName(), "");
+    public Camera renderImage() {
+        try {
+            if (imageWriter == null) {
+                throw new MissingResourceException("One of the field is not set", ImageWriter.class.getName(), "");
+            }
+
+            if (rayTracer == null) {
+                throw new MissingResourceException("One of the field is not set", RayTracerBase.class.getName(), "");
+            }
+
+            int nX = imageWriter.getNx();
+            int nY = imageWriter.getNy();
+
+            for (int row = 0; row < nY; row++) {
+                for (int col = 0; col < nX; col++) {
+                    Color pixelColor = castRay(nX, nY, row, col);
+                    imageWriter.writePixel(row, col, pixelColor);
+                }
+            }
         }
 
-        if (rayTracer == null) {
-            throw new MissingResourceException("One of the field is not set", RayTracerBase.class.getName(), "");
+        catch (MissingResourceException e) {
+            throw new UnsupportedOperationException("Class not implemented: " + e.getClassName());
         }
 
-        throw new UnsupportedOperationException("Need to implements the code here");
+        return this;
     }
 
     /**
@@ -187,7 +205,7 @@ public class Camera {
      * @param interval the interval between the lines
      * @param color    the color of the grid
      */
-    public void  printGrid (int interval, Color color){
+    public void  printGrid(int interval, Color color){
         if (this.imageWriter == null) {
             throw new MissingResourceException("One of the field is not set", "Render", "Image writer");
         }
@@ -200,5 +218,33 @@ public class Camera {
                 }
             }
         }
+    }
+
+    /**
+     * construct a ray from the camera through a specific pixel in the View Plane
+     * and get the color of that pixel
+     *
+     * @param nX amount of pixels in X axis
+     * @param nY amount of pixels in Y axis
+     * @param j pixel at X axis
+     * @param i pixel at Y axis
+     * @return the color of the pixel
+     */
+    private Color castRay(int nX, int nY, int j, int i) {
+        Ray ray = constructRay(nX, nY, j, i);
+        return this.rayTracer.traceRay(ray);
+    }
+
+    /**
+     * If the image writer is not null, write to image.
+     *
+     * @return The camera itself.
+     */
+    public Camera writeToImage() {
+        if (this.imageWriter == null) {
+            throw new MissingResourceException("One of the field is not set", "Render", "Image writer");
+        }
+        this.imageWriter.writeToImage();
+        return this;
     }
 }

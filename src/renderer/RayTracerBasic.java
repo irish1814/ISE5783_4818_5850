@@ -2,6 +2,8 @@ package renderer;
 
 import jdk.jshell.spi.ExecutionControl;
 import primitives.Color;
+import primitives.Double3;
+import primitives.Point;
 import primitives.Ray;
 import scene.Scene;
 
@@ -22,7 +24,6 @@ public class RayTracerBasic extends RayTracerBase {
      */
     public RayTracerBasic(Scene scene) {
         super(scene);
-        throw new UnsupportedOperationException("Constructor not implemented");
     }
 
     /**
@@ -33,6 +34,21 @@ public class RayTracerBasic extends RayTracerBase {
      * */
     @Override
     public Color traceRay(Ray ray) {
-        return null;
+        var intersections = scene.geometries.findIntersections(ray);
+        if (intersections == null) {
+            return scene.background;
+        }
+        Point closestPoint = ray.findClosestPoint(intersections);
+        return closestPoint == null ? scene.background : calcColor(closestPoint);
+    }
+
+    /**
+     * This function return the color of the pixel at the given point
+     *
+     * @param point coordinates of the pixel
+     * @return Color of the background scene
+     * */
+    private Color calcColor(Point point) {
+        return scene.background;
     }
 }
