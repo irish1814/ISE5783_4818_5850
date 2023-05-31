@@ -75,6 +75,10 @@ public class Plane implements Geometry {
         if (isZero(nv))
             return null;
 
+        if (ray.getP0().equals(this.q0)) {
+            return null;
+        }
+
         // calculate the t value
         double t = normal.dotProduct(q0.subtract(ray.getP0())) / nv;
         return  alignZero(t) <= 0 ? null : List.of(ray.getPoint(t));
