@@ -1,8 +1,11 @@
 package renderer;
 
+import jdk.jshell.spi.ExecutionControl;
 import primitives.Color;
 import primitives.Ray;
 import scene.Scene;
+
+import java.util.MissingResourceException;
 
 
 /**
@@ -19,6 +22,7 @@ public class RayTracerBasic extends RayTracerBase {
      */
     public RayTracerBasic(Scene scene) {
         super(scene);
+        throw new UnsupportedOperationException("Constructor not implemented");
     }
 
     /**

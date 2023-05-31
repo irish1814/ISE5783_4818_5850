@@ -21,7 +21,6 @@ public class Camera {
     private double width;
     private double height;
     private double distance;
-
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
 
@@ -71,6 +70,14 @@ public class Camera {
         return distance;
     }
 
+    public ImageWriter getImageWrite() {
+        return imageWriter;
+    }
+
+    public RayTracerBase getRayTracer() {
+        return rayTracer;
+    }
+
     /**
      * Set a new imageWriter to the camera object
      *
@@ -85,11 +92,11 @@ public class Camera {
     /**
      * Set a new RayTracerBase to the camera object
      *
-     * @param rayTracerBase new RayTracerBase object
+     * @param rayTracer new RayTracerBase object
      * @return camera object with the new rayTracerBase
      */
-    public Camera setRayTracerBase(RayTracerBase rayTracerBase) {
-        this.rayTracer = rayTracerBase;
+    public Camera setRayTracerBase(RayTracerBase rayTracer) {
+        this.rayTracer = rayTracer;
         return this;
     }
 
