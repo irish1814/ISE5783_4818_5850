@@ -1,14 +1,9 @@
 package renderer;
 
-import jdk.jshell.spi.ExecutionControl;
 import primitives.Color;
-import primitives.Double3;
 import primitives.Point;
 import primitives.Ray;
 import scene.Scene;
-
-import java.util.MissingResourceException;
-
 
 /**
  * Implementation of the RayTracerBase class that computes the color of the closest intersection point with the scene.
@@ -49,6 +44,6 @@ public class RayTracerBasic extends RayTracerBase {
      * @return Color of the background scene
      * */
     private Color calcColor(Point point) {
-        return scene.background;
+        return scene.ambientLight.getIntensity();
     }
 }
