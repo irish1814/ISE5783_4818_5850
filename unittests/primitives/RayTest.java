@@ -14,12 +14,19 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @author Ishay Houri & Elad Radomski
  */
 class RayTest {
+    /**
+     * Test method for {@link primitives.Ray#getPoint(double)}.
+     * */
+    @Test
+    void getPointTest() {
+
+    }
 
     /**
      * Test method for {@link primitives.Ray#findClosestPoint(List)}.
      */
     @Test
-    void findClosestPoint() {
+    void findClosestPointTest() {
         Point p1 = new Point(0, 0, 1);
         Point p2 = new Point(0, 0, 2);
         Point p3 = new Point(0, 0, 3);

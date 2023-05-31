@@ -3,6 +3,9 @@ package renderer;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import primitives.Color;
+
+import java.util.MissingResourceException;
 
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
@@ -158,5 +161,44 @@ public class Camera {
 
         Vector viewPlaneVector = pixelCenter.subtract(p0);
         return new Ray(viewPlaneVector, p0);
+    }
+
+    /**
+     * This function checks if all the fields are not empty
+     * @throws MissingResourceException The first string will be the message of what's wrong
+     * the second message will be the class name
+     *
+     * */
+    void renderImage() {
+        if (imageWriter == null) {
+            throw new MissingResourceException("One of the field is not set", ImageWriter.class.getName(), "");
+        }
+
+        if (rayTracer == null) {
+            throw new MissingResourceException("One of the field is not set", RayTracerBase.class.getName(), "");
+        }
+
+        throw new UnsupportedOperationException("Need to implements the code here");
+    }
+
+    /**
+     * This function prints a grid to an image file, with the given interval and color.
+     *
+     * @param interval the interval between the lines
+     * @param color    the color of the grid
+     */
+    public void  printGrid (int interval, Color color){
+        if (this.imageWriter == null) {
+            throw new MissingResourceException("One of the field is not set", "Render", "Image writer");
+        }
+
+        int nX = imageWriter.getNx(), nY = imageWriter.getNy();
+        for (int row = 0; row < nY; row++) {
+            for (int column = 0; column < nX; column++) {
+                if (row % interval == 0 || column % interval == 0) {
+                    imageWriter.writePixel(row, column, color);
+                }
+            }
+        }
     }
 }
