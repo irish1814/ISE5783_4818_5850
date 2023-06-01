@@ -17,14 +17,24 @@ import static primitives.Util.isZero;
  */
 
 public class Camera {
+
     private final Point p0;
-    private final Vector vUp;
+
     private final Vector vTo;
+
+
+    private final Vector vUp;
+
     private final Vector vRight;
+
     private double width;
+
     private double height;
+
     private double distance;
+
     private ImageWriter imageWriter;
+
     private RayTracerBase rayTracer;
 
     /**
@@ -45,38 +55,57 @@ public class Camera {
     }
 
     // ***************** Getters ********************** //
+    /** get p0
+     * @return p0 of the camera
+     */
     public Point getP0() {
         return p0;
     }
-
+    /** get Vto
+     * @return Vto of the camera
+     */
     public Vector getVto() {
         return vTo;
     }
-
+    /** get Vup
+     * @return Vup of the camera
+     */
     public Vector getVup() {
         return vUp;
     }
-
+    /** get VRight
+     * @return VRight of the camera
+     */
     public Vector getVRight() {
         return vRight;
     }
-
+    /** get Width
+     * @return Width of the camera
+     */
     public double getWidth() {
         return width;
     }
-
+    /** get Height
+     * @return Height of the camera
+     */
     public double getHeight() {
         return height;
     }
-
+    /** get Distance
+     * @return Distance of the camera
+     */
     public double getDistance() {
         return distance;
     }
-
+    /** get ImageWrite
+     * @return ImageWrite of the camera
+     */
     public ImageWriter getImageWrite() {
         return imageWriter;
     }
-
+    /** get RayTracer
+     * @return RayTracer of the camera
+     */
     public RayTracerBase getRayTracer() {
         return rayTracer;
     }
