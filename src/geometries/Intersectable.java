@@ -10,10 +10,15 @@ import java.util.List;
  *
  * @author Ishay Houri & Elad Radomski
  */
-public interface Intersectable {
+public abstract class Intersectable {
+    public static class GeoPoint {
+        public Geometry geometry;
+        public Point point;
+    }
+
     /**
      * @param ray given ray from a geometric shape
      * @return list of intersection points
      */
-    List<Point> findIntersections(Ray ray);
+    public abstract List<Point> findIntersections(Ray ray);
 }

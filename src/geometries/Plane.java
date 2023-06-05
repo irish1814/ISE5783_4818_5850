@@ -14,7 +14,7 @@ import static primitives.Util.isZero;
  *
  * @author Ishay Houri & Elad Radomski
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     /**
      * A point contained in a plane
      */
