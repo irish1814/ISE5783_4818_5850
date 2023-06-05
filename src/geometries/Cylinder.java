@@ -13,7 +13,7 @@ public class Cylinder extends Tube {
     /**
      * The Height of the Cylinder
      */
-    double height;
+    private final double height;
 
     /**
      * Constructor to initialize Cylinder based on a Radius and Height

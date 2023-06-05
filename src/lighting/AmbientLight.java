@@ -29,11 +29,12 @@ public class AmbientLight {
      * @param iA intensity of the light based on RGB values
      * @param kA light attenuation coefficient
      */
+    @SuppressWarnings("unused")
     public AmbientLight(Color iA, double kA) {
         intensity = iA.scale(kA);
     }
 
-    /**
+    /** TODO
      * @return intensity
      * */
     public Color getIntensity() {

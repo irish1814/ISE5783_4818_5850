@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  *
  * @author Ishay Houri & Elad Radomski
  */
-
 class PointTest {
     /**
      * Test method for {@link primitives.Point#add(primitives.Point)}.

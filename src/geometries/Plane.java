@@ -72,12 +72,8 @@ public class Plane extends Geometry {
     public List<Point> findIntersections(Ray ray) {
         // check if the ray is parallel to the plane
         double nv = normal.dotProduct(ray.getDirection());
-        if (isZero(nv))
+        if (isZero(nv) || ray.getP0().equals(this.q0))
             return null;
-
-        if (ray.getP0().equals(this.q0)) {
-            return null;
-        }
 
         // calculate the t value
         double t = normal.dotProduct(q0.subtract(ray.getP0())) / nv;

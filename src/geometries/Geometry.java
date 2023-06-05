@@ -29,7 +29,7 @@ public abstract class Geometry extends Intersectable {
         this.emission = emission;
         return this;
     }
-    /**
+    /** TODO
      * @param p Given point in a geometric shape
      * @return Normal vector from the given point
      * */

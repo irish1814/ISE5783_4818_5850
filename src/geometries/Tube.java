@@ -6,8 +6,6 @@ import primitives.Vector;
 
 import java.util.List;
 
-import static primitives.Util.isZero;
-
 /**
  * Tube class represents a Tube in 3D
  *

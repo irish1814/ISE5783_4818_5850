@@ -9,11 +9,11 @@ public abstract class RadialGeometry extends Geometry {
     /**
      * The Radius of the Shape
      */
-    protected double radius;
+    protected final double radius;
     /**
      * The squared Radius of the Shape
      */
-    protected double radiusSquared;
+    protected final double radiusSquared;
 
     /**
      * Constructor to initialize Radial Shape based on Radius

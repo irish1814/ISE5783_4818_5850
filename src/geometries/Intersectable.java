@@ -16,7 +16,7 @@ public abstract class Intersectable {
         public Point point;
     }
 
-    /**
+    /** TODO
      * @param ray given ray from a geometric shape
      * @return list of intersection points
      */

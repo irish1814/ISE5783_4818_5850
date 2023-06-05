@@ -1,9 +1,9 @@
 package renderer;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-import primitives.Color;
 
 import java.util.MissingResourceException;
 
@@ -17,24 +17,14 @@ import static primitives.Util.isZero;
  */
 
 public class Camera {
-
     private final Point p0;
-
     private final Vector vTo;
-
-
     private final Vector vUp;
-
     private final Vector vRight;
-
     private double width;
-
     private double height;
-
     private double distance;
-
     private ImageWriter imageWriter;
-
     private RayTracerBase rayTracer;
 
     /**
@@ -45,8 +35,7 @@ public class Camera {
      */
     public Camera(Point p, Vector to, Vector up) {
         // Check if the two vectors are vertical to each other
-        if (!isZero(up.dotProduct(to)))
-            throw new IllegalArgumentException("Vectors aren't vertical");
+        if (!isZero(up.dotProduct(to))) throw new IllegalArgumentException("Vectors aren't vertical");
 
         vUp = up.normalize();
         vTo = to.normalize();
@@ -55,57 +44,93 @@ public class Camera {
     }
 
     // ***************** Getters ********************** //
-    /** get p0
+
+    /**
+     * get p0
+     *
      * @return p0 of the camera
      */
+    @SuppressWarnings("unused")
     public Point getP0() {
         return p0;
     }
-    /** get Vto
+
+    /**
+     * get Vto
+     *
      * @return Vto of the camera
      */
+    @SuppressWarnings("unused")
     public Vector getVto() {
         return vTo;
     }
-    /** get Vup
+
+    /**
+     * get Vup
+     *
      * @return Vup of the camera
      */
+    @SuppressWarnings("unused")
     public Vector getVup() {
         return vUp;
     }
-    /** get VRight
+
+    /**
+     * get VRight
+     *
      * @return VRight of the camera
      */
+    @SuppressWarnings("unused")
     public Vector getVRight() {
         return vRight;
     }
-    /** get Width
+
+    /**
+     * get Width
+     *
      * @return Width of the camera
      */
+    @SuppressWarnings("unused")
     public double getWidth() {
         return width;
     }
-    /** get Height
+
+    /**
+     * get Height
+     *
      * @return Height of the camera
      */
+    @SuppressWarnings("unused")
     public double getHeight() {
         return height;
     }
-    /** get Distance
+
+    /**
+     * get Distance
+     *
      * @return Distance of the camera
      */
+    @SuppressWarnings("unused")
     public double getDistance() {
         return distance;
     }
-    /** get ImageWrite
+
+    /**
+     * get ImageWriter
+     *
      * @return ImageWrite of the camera
      */
+    @SuppressWarnings("unused")
     public ImageWriter getImageWrite() {
         return imageWriter;
     }
-    /** get RayTracer
+
+    /**
+     * get RayTracer
+     *
      * @return RayTracer of the camera
      */
+    @SuppressWarnings("unused")
     public RayTracerBase getRayTracer() {
         return rayTracer;
     }
@@ -119,9 +144,7 @@ public class Camera {
      * @return camera object with the new distance
      */
     public Camera setVPDistance(double d) {
-        if (alignZero(d) <= 0)
-            throw new IllegalArgumentException("Distance can't be negative");
-
+        if (alignZero(d) <= 0) throw new IllegalArgumentException("Distance can't be negative");
         this.distance = d;
         return this;
     }
@@ -136,7 +159,6 @@ public class Camera {
     public Camera setVPSize(double width, double height) {
         if (alignZero(width) <= 0 || alignZero(height) <= 0)
             throw new IllegalArgumentException("width and height can't be negative");
-
         this.width = width;
         this.height = height;
         return this;
@@ -178,53 +200,38 @@ public class Camera {
         Point center = p0.add(vTo.scalarProduct(distance));
 
         // Get the height and width of each pixel
-        double rY = height / nY, rX = width / nX;
+        double rY = height / nY;
+        double rX = width / nX;
         double xJ = (j - (nX - 1) / 2d) * rX;
         double yI = -(i - (nX - 1) / 2d) * rY;
 
         Point pixelCenter = center;
-        if (!isZero(xJ)) {
-            pixelCenter = pixelCenter.add(vRight.scalarProduct(xJ));
-        }
-        if (!isZero(yI)) {
-            pixelCenter = pixelCenter.add(vUp.scalarProduct(yI));
-        }
-
+        if (!isZero(xJ)) pixelCenter = pixelCenter.add(vRight.scalarProduct(xJ));
+        if (!isZero(yI)) pixelCenter = pixelCenter.add(vUp.scalarProduct(yI));
         return new Ray(pixelCenter.subtract(p0), p0);
     }
 
     /**
      * This function iterate over each pixel and cast a ray from that pixel
      *
-     * @throws MissingResourceException The first string will be the message of what's wrong
-     * the second message will be the class name
      * @return Camera object
-     * */
+     * @throws MissingResourceException The first string will be the message of what's wrong
+     *                                  the second message will be the class name
+     */
     public Camera renderImage() {
-        try {
-            if (imageWriter == null) {
-                throw new MissingResourceException("One of the field is not set", ImageWriter.class.getName(), "");
-            }
+        if (imageWriter == null)
+            throw new MissingResourceException("One of the field is not set", ImageWriter.class.getName(), "");
+        if (rayTracer == null)
+            throw new MissingResourceException("One of the field is not set", RayTracerBase.class.getName(), "");
 
-            if (rayTracer == null) {
-                throw new MissingResourceException("One of the field is not set", RayTracerBase.class.getName(), "");
-            }
-
-            int nX = imageWriter.getNx();
-            int nY = imageWriter.getNy();
-
-            for (int row = 0; row < nY; row++) {
-                for (int col = 0; col < nX; col++) {
-                    Color pixelColor = castRay(nX, nY, row, col);
-                    imageWriter.writePixel(row, col, pixelColor);
-                }
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
+        for (int row = 0; row < nY; row++) {
+            for (int col = 0; col < nX; col++) {
+                Color pixelColor = castRay(nX, nY, row, col);
+                imageWriter.writePixel(row, col, pixelColor);
             }
         }
-
-        catch (MissingResourceException e) {
-            throw new UnsupportedOperationException("Class not implemented: " + e.getClassName());
-        }
-
         return this;
     }
 
@@ -234,12 +241,12 @@ public class Camera {
      * @param interval the interval between the lines
      * @param color    the color of the grid
      */
-    public void  printGrid(int interval, Color color){
-        if (this.imageWriter == null) {
+    public void printGrid(int interval, Color color) {
+        if (this.imageWriter == null)
             throw new MissingResourceException("One of the field is not set", "Render", "Image writer");
-        }
 
-        int nX = imageWriter.getNx(), nY = imageWriter.getNy();
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
         for (int row = 0; row < nY; row++) {
             for (int column = 0; column < nX; column++) {
                 if (row % interval == 0 || column % interval == 0) {
@@ -255,8 +262,8 @@ public class Camera {
      *
      * @param nX amount of pixels in X axis
      * @param nY amount of pixels in Y axis
-     * @param j pixel at X axis
-     * @param i pixel at Y axis
+     * @param j  pixel at X axis
+     * @param i  pixel at Y axis
      * @return the color of the pixel
      */
     private Color castRay(int nX, int nY, int j, int i) {
@@ -266,14 +273,10 @@ public class Camera {
 
     /**
      * If the image writer is not null, write to image.
-     *
-     * @return The camera itself.
      */
-    public Camera writeToImage() {
-        if (this.imageWriter == null) {
+    public void writeToImage() {
+        if (this.imageWriter == null)
             throw new MissingResourceException("One of the field is not set", "Render", "Image writer");
-        }
         this.imageWriter.writeToImage();
-        return this;
     }
 }

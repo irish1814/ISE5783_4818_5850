@@ -51,6 +51,7 @@ public class Scene {
         background = bg;
         return this;
     }
+
     /**
      * Set a new AmbientLight to the scene object
      *
@@ -61,6 +62,7 @@ public class Scene {
         ambientLight = al;
         return this;
     }
+
     /**
      * Set a new Geometries to the scene object
      *
