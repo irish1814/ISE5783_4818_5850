@@ -21,12 +21,6 @@ public class RayTracerBasic extends RayTracerBase {
         super(scene);
     }
 
-    /**
-     * calculating the color of the closest point to the given ray
-     *
-     * @param ray Requested ray
-     * @return color of closest point or black background if there isn't any close point
-     * */
     @Override
     public Color traceRay(Ray ray) {
         var intersections = scene.geometries.findIntersections(ray);

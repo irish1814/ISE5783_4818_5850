@@ -14,6 +14,8 @@ public class AmbientLight {
     private final Color intensity;
 
     /**
+     * constructor initialize the intensity of the light
+     *
      * @param iA intensity of the light based on RGB values
      * @param kA light attenuation coefficient
      */
@@ -21,10 +23,19 @@ public class AmbientLight {
         intensity = iA.scale(kA);
     }
 
+    /**
+     * constructor initialize the intensity of the light
+     *
+     * @param iA intensity of the light based on RGB values
+     * @param kA light attenuation coefficient
+     */
     public AmbientLight(Color iA, double kA) {
         intensity = iA.scale(kA);
     }
 
+    /**
+     * @return intensity
+     * */
     public Color getIntensity() {
         return intensity;
     }
