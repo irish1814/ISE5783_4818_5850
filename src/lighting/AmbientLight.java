@@ -10,6 +10,9 @@ import primitives.Double3;
  */
 
 public class AmbientLight {
+    /**
+     * an empty Ambient light - black color
+     */
     public static final AmbientLight NONE = new AmbientLight(Color.BLACK, Double3.ZERO);
     private final Color intensity;
 
@@ -34,7 +37,7 @@ public class AmbientLight {
         intensity = iA.scale(kA);
     }
 
-    /** TODO
+    /** get the intensity of the ambient light
      * @return intensity
      * */
     public Color getIntensity() {

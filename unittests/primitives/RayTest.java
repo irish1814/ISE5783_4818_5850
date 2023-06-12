@@ -19,7 +19,16 @@ class RayTest {
      * */
     @Test
     void getPointTest() {
+        Ray ray = new Ray(new Vector(0, 0, 1), new Point(0, 0, 1));
 
+        //TC01: t is less than zero
+        assertEquals(new Point (0,0,-1),ray.getPoint(-2));
+
+        //TC02: t is equal to zero
+        assertEquals(new Point (0,0,1),ray.getPoint(0));
+
+        //TC02: t is more than zero
+        assertEquals(new Point (0,0,3),ray.getPoint(2));
     }
 
     /**
