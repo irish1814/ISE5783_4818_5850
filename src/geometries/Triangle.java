@@ -25,7 +25,7 @@ public class Triangle extends Polygon {
         super(p1, p2, p3);
     }
 
-    @Override
+    /*@Override
     public List<Point> findIntersections(Ray ray) {
         //check whether the ray intersect with the polygon's plane or not
         var planePoints = plane.findIntersections(ray);
@@ -50,6 +50,37 @@ public class Triangle extends Polygon {
         double vn3 = alignZero(dir.dotProduct(n3));
         if (vn1 * vn3 <= 0) return null;
 
+        return planePoints;
+    }*/
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        //check whether the ray intersect with the polygon's plane or not
+        var planePoints = plane.findGeoIntersections(ray);
+        if (planePoints == null) return null;
+
+        Point p0 = ray.getP0();
+        Vector dir = ray.getDirection();
+
+        //vectors calculations
+        Vector v1 = vertices.get(0).subtract(p0);
+        Vector v2 = vertices.get(1).subtract(p0);
+        Vector n1 = v1.crossProduct(v2).normalize();
+        double vn1 = alignZero(dir.dotProduct(n1));
+        if (vn1 == 0) return null;
+
+        Vector v3 = vertices.get(2).subtract(p0);
+        Vector n2 = v2.crossProduct(v3).normalize();
+        double vn2 = alignZero(dir.dotProduct(n2));
+        if (vn1 * vn2 <= 0) return null;
+
+        Vector n3 = v3.crossProduct(v1).normalize();
+        double vn3 = alignZero(dir.dotProduct(n3));
+        if (vn1 * vn3 <= 0) return null;
+
+        for (GeoPoint p: planePoints) {
+            p.geometry = this;
+        }
         return planePoints;
     }
 }

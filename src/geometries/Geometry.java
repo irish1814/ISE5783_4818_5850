@@ -12,7 +12,7 @@ import primitives.Vector;
 public abstract class Geometry extends Intersectable {
     protected Color emission = Color.BLACK;
 
-    /**
+    /** get the emission color of the geometry
      * @return emission field
      * */
     public Color getEmission() {

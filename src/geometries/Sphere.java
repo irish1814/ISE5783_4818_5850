@@ -43,7 +43,7 @@ public class Sphere extends RadialGeometry {
         return p.subtract(center).normalize();
     }
 
-    @Override
+    /*@Override
     public List<Point> findIntersections(Ray ray) {
         //first - check if the ray start at the center of the sphere
         if (ray.getP0().equals(center))
@@ -69,5 +69,34 @@ public class Sphere extends RadialGeometry {
 
         double t1 = alignZero(tm - th);
         return t1 <= 0 ? List.of(ray.getPoint(t2)) : List.of(ray.getPoint(t2), ray.getPoint(t1));
+    }*/
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        //first - check if the ray start at the center of the sphere
+        if (ray.getP0().equals(center))
+            return List.of(new GeoPoint(this, ray.getPoint(radius)));
+
+        //calculate the vector between the sphere center and the ray start point
+        Vector u = center.subtract(ray.getP0());
+        //calculate the length of tm line in the formula
+        double tm = ray.getDirection().dotProduct(u);
+        //calculate the d length between the center of the sphere and the ray
+        double dSquared = u.lengthSquared() - (tm * tm);
+        double thSquared = radiusSquared - dSquared;
+
+        //if d is less than sphere's radius - there is no intersections
+        if (alignZero(thSquared) <= 0) return null;
+
+        //calculate the length of th line in the formula
+        double th = Math.sqrt(thSquared);
+
+        //calculate the intersections
+        double t2 = alignZero(tm + th);
+        if (t2 <= 0) return null;
+
+        double t1 = alignZero(tm - th);
+        return t1 <= 0 ? List.of(new GeoPoint(this,ray.getPoint(t2)))
+                : List.of(new GeoPoint(this,ray.getPoint(t2)),new GeoPoint(this, ray.getPoint(t1)));
     }
 }

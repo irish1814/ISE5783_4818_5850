@@ -22,7 +22,7 @@ public class Geometries extends Intersectable {
         }
     }
 
-    @Override
+    /*@Override
     public List<Point> findIntersections(Ray ray) {
         List<Point> intersections = null;
         for (Intersectable geometry : geometries) {
@@ -34,6 +34,19 @@ public class Geometries extends Intersectable {
             }
         }
         return intersections;
+    }*/
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+        List<GeoPoint> GeoIntersections = null;
+        for (Intersectable geometry : geometries) {
+            var tempList = geometry.findGeoIntersections(ray);
+            if (tempList != null) {
+                if (GeoIntersections == null)
+                    GeoIntersections = new LinkedList<>();
+                GeoIntersections.addAll(tempList);
+            }
+        }
+        return GeoIntersections;
     }
 }
 

@@ -113,7 +113,7 @@ public class Polygon extends Geometry {
      * @return an Array of Doubles represents the Barycentric Coords
      * (number of coords is the number of polygon's vertices)
      */
-    private double[] getBarycentricCoords(Point p) {
+    private double[] getBarycentricCoords(GeoPoint p) {
         // Array to store the barycentric coordinates
         double[] barycentricCoords = new double[size];
         //calculate the polygon total area
@@ -133,7 +133,7 @@ public class Polygon extends Geometry {
         for (int i = 0; i < size; i++) {
             Point v1 = vertices.get(i);
             Point v2 = vertices.get((i + 1) % size);
-            Point v3 = p;
+            Point v3 = p.point;
 
             double triangleArea = calculateTriangleArea(v1, v2, v3);
             barycentricCoords[i] = triangleArea / totalArea;
@@ -141,7 +141,7 @@ public class Polygon extends Geometry {
         return barycentricCoords;
     }
 
-    @Override
+   /* @Override
     public List<Point> findIntersections(Ray ray) {
         //check whether the ray intersect with the polygon's plane or not
         List<Point> planePoints = plane.findIntersections(ray);
@@ -169,6 +169,37 @@ public class Polygon extends Geometry {
         if (sum > 1)
             return null;
         //if all coords positive or zero and sum is no more then 1 - the point is inside the polygon
+        return List.of(intersectionPoint);
+    }*/
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        //check whether the ray intersect with the polygon's plane or not
+        List<GeoPoint> planePoints = plane.findGeoIntersections(ray);
+        if (planePoints == null)
+            return null;
+        GeoPoint intersectionPoint = planePoints.get(0);
+        //check if the intersection point is one of the polygon's points
+        for (Point p : vertices) {
+            if (p.equals(intersectionPoint.point))
+                return null;
+        }
+
+        //if yes - check if the point is inside the polygon or not - using barycentric coords
+        double[] barycentricCoords = getBarycentricCoords(intersectionPoint);
+        //check if all barycentric coords are positive or zero
+        for (Double d : barycentricCoords) {
+            if (d < 0)
+                return null;
+        }
+        //check if the sum of all barycentric coords is no more than 1
+        double sum = 0;
+        for (Double d : barycentricCoords) {
+            sum += d;
+        }
+        if (sum > 1)
+            return null;
+        //if all coords positive or zero and sum is no more than 1 - the point is inside the polygon
         return List.of(intersectionPoint);
     }
 }
