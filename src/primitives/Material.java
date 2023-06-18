@@ -24,7 +24,7 @@ public class Material {
     /**
      * shininess coefficient of the material
      */
-    public int nShininess = 0;
+    public int nShininess = 1;
 
     /**
      * Set a new kD coefficient to the Material
