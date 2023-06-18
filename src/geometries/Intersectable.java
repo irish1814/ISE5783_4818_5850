@@ -9,7 +9,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 /**
- * Interface represents all intersection points of a geometric shape
+ * abstract class represents all intersection points of a geometric shape
  *
  * @author Ishay Houri & Elad Radomski
  */
