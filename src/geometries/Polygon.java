@@ -141,36 +141,6 @@ public class Polygon extends Geometry {
         return barycentricCoords;
     }
 
-   /* @Override
-    public List<Point> findIntersections(Ray ray) {
-        //check whether the ray intersect with the polygon's plane or not
-        List<Point> planePoints = plane.findIntersections(ray);
-        if (planePoints == null)
-            return null;
-        Point intersectionPoint = planePoints.get(0);
-        //check if the intersection point is one of the polygon's points
-        for (Point p : vertices) {
-            if (p.equals(intersectionPoint))
-                return null;
-        }
-
-        //if yes - check if the point is inside the polygon or not - using barycentric coords
-        double[] barycentricCoords = getBarycentricCoords(intersectionPoint);
-        //check if all barycentric coords are positive or zero
-        for (Double d : barycentricCoords) {
-            if (d < 0)
-                return null;
-        }
-        //check if the sum of all barycentric coords is no more than 1
-        double sum = 0;
-        for (Double d : barycentricCoords) {
-            sum += d;
-        }
-        if (sum > 1)
-            return null;
-        //if all coords positive or zero and sum is no more then 1 - the point is inside the polygon
-        return List.of(intersectionPoint);
-    }*/
 
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {

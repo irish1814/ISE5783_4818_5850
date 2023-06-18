@@ -6,6 +6,8 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * Interface represents all intersection points of a geometric shape
  *
@@ -53,12 +55,16 @@ public abstract class Intersectable {
         }
     }
 
-
+    public final List<Point> findIntersections(Ray ray) {
+        List<GeoPoint> geoList = findGeoIntersections(ray);
+        return geoList == null ? null
+                : geoList.stream().map(gp -> gp.point).toList();
+    }
     /** find all the GeoIntersections points from a given ray to the shape
      * @param ray given ray from a geometric shape
      * @return list of intersection GeoPoints
      */
-    public List<GeoPoint> findGeoIntersections(Ray ray){
+    public final List<GeoPoint> findGeoIntersections(Ray ray){
         return findGeoIntersectionsHelper(ray);
     }
 

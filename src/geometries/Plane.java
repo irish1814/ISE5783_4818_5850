@@ -68,17 +68,6 @@ public class Plane extends Geometry {
         return normal;
     }
 
-    /*@Override
-    public List<Point> findIntersections(Ray ray) {
-        // check if the ray is parallel to the plane
-        double nv = normal.dotProduct(ray.getDirection());
-        if (isZero(nv) || ray.getP0().equals(this.q0))
-            return null;
-
-        // calculate the t value
-        double t = normal.dotProduct(q0.subtract(ray.getP0())) / nv;
-        return  alignZero(t) <= 0 ? null : List.of(ray.getPoint(t));
-    }*/
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         // check if the ray is parallel to the plane
