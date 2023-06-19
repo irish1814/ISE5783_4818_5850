@@ -81,6 +81,6 @@ public class Plane extends Geometry {
 
         // calculate the t value
         double t = normal.dotProduct(q0.subtract(ray.getP0())) / nv;
-        return  alignZero(t) <= 0 ? null : List.of( new GeoPoint(this,ray.getPoint(t)));
+        return alignZero(t) <= 0 ? null : List.of(new GeoPoint(this, ray.getPoint(t)));
     }
 }

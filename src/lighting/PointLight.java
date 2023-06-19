@@ -1,6 +1,8 @@
 package lighting;
 
-import primitives.*;
+import primitives.Color;
+import primitives.Point;
+import primitives.Vector;
 
 /**
  * A Class that represent Point light
@@ -10,19 +12,19 @@ import primitives.*;
  */
 public class PointLight extends Light implements LightSource {
 
-    final protected Point position;
+    final private Point position;
 
-    protected double kC = 1;
-    protected double kL = 0;
-    protected double kQ = 0;
+    private double kC = 1;
+    private double kL = 0;
+    private double kQ = 0;
 
     /**
      * Constructor for the point light
      *
      * @param intensity intensity of the light
-     * @param pos the position point of the light
+     * @param pos       the position point of the light
      */
-    public PointLight (Color intensity, Point pos){
+    public PointLight(Color intensity, Point pos) {
         super(intensity);
         position = pos;
     }
@@ -61,14 +63,13 @@ public class PointLight extends Light implements LightSource {
     }
 
     @Override
-    public Color getIntensity(Point p){
-        //double d = getL(p).length();
-        double d = p.subtract(position).length();
-        return getIntensity().reduce(kC + kL*d + kQ*d*d);
+    public Color getIntensity(Point p) {
+        double d = p.distance(position);
+        return intensity.reduce(kC + kL * d + kQ * d * d);
     }
 
     @Override
-    public Vector getL(Point p){
+    public Vector getL(Point p) {
         return p.subtract(position).normalize();
     }
 }

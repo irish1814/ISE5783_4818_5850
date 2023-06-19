@@ -17,7 +17,7 @@ public class Scene {
     /**
      * The name of the scene
      */
-    public String sceneName;
+    public final String sceneName;
 
     /**
      * The geometries that include in the scene
@@ -91,6 +91,7 @@ public class Scene {
      * @param Lights new light sources list
      * @return Scene object with the new light sources
      */
+    @SuppressWarnings("unused")
     public Scene setLights(List<LightSource> Lights) {
         lights = Lights;
         return this;

@@ -1,6 +1,5 @@
 package geometries;
 
-import primitives.Point;
 import primitives.Ray;
 
 import java.util.LinkedList;
@@ -18,10 +17,12 @@ public class Geometries extends Intersectable {
      * default constructor to build the list with
      * initialized values
      */
-    public Geometries() {}
+    public Geometries() {
+    }
 
     /**
      * constructor that get geometries and add them to the list
+     *
      * @param geometries to build the list
      */
     public Geometries(Intersectable... geometries) {
@@ -30,23 +31,24 @@ public class Geometries extends Intersectable {
 
     /**
      * add geometries to the list
+     *
      * @param geometries the shapes to add to the list
      */
     public void add(Intersectable... geometries) {
-        if (geometries != null) {
+        if (geometries != null)
             this.geometries.addAll(List.of(geometries));
-        }
     }
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<GeoPoint> GeoIntersections = null;
         for (Intersectable geometry : geometries) {
             var tempList = geometry.findGeoIntersections(ray);
             if (tempList != null) {
                 if (GeoIntersections == null)
-                    GeoIntersections = new LinkedList<>();
-                GeoIntersections.addAll(tempList);
+                    GeoIntersections = new LinkedList<>(tempList);
+                else
+                    GeoIntersections.addAll(tempList);
             }
         }
         return GeoIntersections;

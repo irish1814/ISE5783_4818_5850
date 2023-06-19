@@ -6,7 +6,7 @@ import primitives.Vector;
 
 import java.util.List;
 
-import static primitives.Util.*;
+import static primitives.Util.alignZero;
 
 /**
  * Plane class represents two-dimensional Triangle in 2D Cartesian coordinate
@@ -51,9 +51,7 @@ public class Triangle extends Polygon {
         double vn3 = alignZero(dir.dotProduct(n3));
         if (vn1 * vn3 <= 0) return null;
 
-        for (GeoPoint p: planePoints) {
-            p.geometry = this;
-        }
+        planePoints.get(0).geometry = this;
         return planePoints;
     }
 }
