@@ -144,6 +144,41 @@ public class LightsTests {
          .writeToImage(); //
    }
 
+   /** Produce a picture of a sphere lighted by all types of lights */
+   @Test
+   public void sphereMultiLights() {
+      scene1.geometries.add(sphere);
+      scene1.lights.add(new SpotLight(new Color(300,500,200), new Point(5,-5,10), new Vector(-1, 0.5, -0.5))
+              .setKl(0.006).setKq(0.0003));
+      scene1.lights.add(new PointLight(new Color(200,900,200), new Point(50,50,-25))
+              .setKl(0.003).setKq(0.0004));
+      scene1.lights.add(new DirectionalLight(new Color(600,250,0), new Vector(1, 0, -0.5)));
+
+      ImageWriter imageWriter = new ImageWriter("sphereMultiLights", 500, 500);
+      camera1.setImageWriter(imageWriter) //
+              .setRayTracer(new RayTracerBasic(scene1)) //
+              .renderImage() //
+              .writeToImage(); //
+   }
+
+   /** Produce a picture of two triangles lighted by all types of lights */
+   @Test
+   public void trianglesMultiLights() {
+      scene2.geometries.add(triangle1, triangle2);
+      scene2.lights.add(new PointLight(new Color(250,500,800), new Point(0,10,-100))
+              .setKl(0.001).setKq(0.0002));
+      scene2.lights.add(new SpotLight(new Color(800,100,0), new Point(30,0,-100), new Vector(2,2,-4))
+              .setKl(0.001).setKq(0.0001));
+      scene2.lights.add(new DirectionalLight(new Color(50,70,40), new Vector(-2,-1,-0.5)));
+
+
+      ImageWriter imageWriter = new ImageWriter("trianglesMultiLights", 500, 500);
+      camera2.setImageWriter(imageWriter) //
+              .setRayTracer(new RayTracerBasic(scene2)) //
+              .renderImage() //
+              .writeToImage(); //
+   }
+
    /** Produce a picture of a sphere lighted by a narrow spotlight */
    //@Test
    /*public void sphereSpotSharp() {

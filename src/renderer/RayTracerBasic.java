@@ -40,17 +40,21 @@ public class RayTracerBasic extends RayTracerBase {
      * This function return the color of the pixel at the given point
      *
      * @param gp geoPoint in the space
+     * @param ray the ray casting to the point
      * @return Color of the given GeoPoint
      */
-    /*private Color calcColor(GeoPoint gp, Vector rayVector) {
-        return scene.ambientLight.getIntensity()
-                .add(gp.geometry.getEmission());
-    }*/
     private Color calcColor(GeoPoint gp, Ray ray) {
         return scene.ambientLight.getIntensity()
                 .add(calcLocalEffects(gp, ray));
     }
 
+    /**
+     * This function add the local effect color in specific point
+     * using the Phong Light Model
+     * @param gp geoPoint in the space
+     * @param ray the ray casting to the point
+     * @return local Color of the given GeoPoint
+     */
     private Color calcLocalEffects(GeoPoint gp, Ray ray) {
         Color color = gp.geometry.getEmission();
         Vector v = ray.getDirection ();
@@ -70,11 +74,25 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
     }
 
+    /**
+     * calculate the diffusive component
+     * @param material the material that the light hits
+     * @param nl dot product between the normal on point and the light direction vector
+     * @return diffusive component value
+     */
     private Double3 calcDiffusive(Material material, double nl){
         return material.kD.scale(Math.abs(nl));
     }
 
-
+    /**
+     * calculate the Specular component
+     * @param material the material that the light hits
+     * @param n the normal vector
+     * @param l the light direction vector
+     * @param nl dot product between the normal on point and the light vector
+     * @param v the ray direction vector
+     * @return Specular component value
+     */
     private Double3 calcSpecular(Material material, Vector n,Vector l, double nl,Vector v){
         Vector R = l.add(n.scalarProduct(-2 * nl));
         double dp = R.dotProduct(v);
