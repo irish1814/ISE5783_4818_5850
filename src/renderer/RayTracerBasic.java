@@ -77,6 +77,7 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * calculate the diffusive component
+     *
      * @param material the material that the light hits
      * @param nl dot product between the normal on point and the light direction vector
      * @return diffusive component value
@@ -87,6 +88,7 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * calculate the Specular component
+     *
      * @param material the material that the light hits
      * @param n the normal vector
      * @param l the light direction vector
@@ -100,6 +102,4 @@ public class RayTracerBasic extends RayTracerBase {
         double pow = Math.pow(dp,material.nShininess);
         return material.kS.scale(Math.abs(pow));
     }
-
-
 }
