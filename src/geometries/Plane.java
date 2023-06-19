@@ -62,7 +62,11 @@ public class Plane extends Geometry {
         return normal;
     }
 
-
+    /**
+     * Get the normal to a given point
+     *
+     * @return the normal field of the current plane
+     */
     @Override
     public Vector getNormal(Point p) {
         return normal;

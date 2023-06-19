@@ -28,12 +28,6 @@ public class Tube extends RadialGeometry {
         axisRay = ray;
     }
 
-    /**
-     * Method to get the Normal Vector at some Point in the Tube
-     *
-     * @param p the Point on the Tube to find the Normal to the point
-     * @return The Normal Vector to the point
-     */
     @Override
     public Vector getNormal(Point p) {
         //find the t length using the formula 𝒕 = 𝒗 ∙( 𝑷 − 𝑷0)

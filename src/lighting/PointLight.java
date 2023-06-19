@@ -1,6 +1,7 @@
 package lighting;
 
 import primitives.*;
+
 /**
  * A Class that represent Point light
  * and implements the Phong Reflectance Model
@@ -16,7 +17,8 @@ public class PointLight extends Light implements LightSource {
     protected double kQ = 0;
 
     /**
-     * Constractor for the point light
+     * Constructor for the point light
+     *
      * @param intensity intensity of the light
      * @param pos the position point of the light
      */
@@ -27,6 +29,7 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * set kC coefficient
+     *
      * @param c
      * @return the Point light itself
      */
@@ -34,8 +37,10 @@ public class PointLight extends Light implements LightSource {
         kC = c;
         return this;
     }
+
     /**
      * set kL coefficient
+     *
      * @param l
      * @return the Point light itself
      */
@@ -43,8 +48,10 @@ public class PointLight extends Light implements LightSource {
         kL = l;
         return this;
     }
+
     /**
      * set kQ coefficient
+     *
      * @param q
      * @return the Point light itself
      */

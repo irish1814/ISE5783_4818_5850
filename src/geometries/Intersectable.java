@@ -55,12 +55,20 @@ public abstract class Intersectable {
         }
     }
 
+    /**
+     * find all intersections points with a ray
+     *
+     * @ray the given ray we find the intersections
+     * @return list of all intersections points
+     * */
     public final List<Point> findIntersections(Ray ray) {
         List<GeoPoint> geoList = findGeoIntersections(ray);
         return geoList == null ? null
                 : geoList.stream().map(gp -> gp.point).toList();
     }
+
     /** find all the GeoIntersections points from a given ray to the shape
+     *
      * @param ray given ray from a geometric shape
      * @return list of intersection GeoPoints
      */
@@ -68,5 +76,11 @@ public abstract class Intersectable {
         return findGeoIntersectionsHelper(ray);
     }
 
+    /**
+     * find intersections with a ray and which shape it belongs to
+     *
+     * @param ray ray we want to find intersection with
+     * @return list of points of the corresponding shape
+     * */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 }

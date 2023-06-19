@@ -51,6 +51,7 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * This function add the local effect color in specific point
      * using the Phong Light Model
+     *
      * @param gp geoPoint in the space
      * @param ray the ray casting to the point
      * @return local Color of the given GeoPoint

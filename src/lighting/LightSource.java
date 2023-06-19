@@ -12,6 +12,7 @@ public interface LightSource {
     /**
      * method that calculate the intensity of the light
      * by using Phong Reflectance Model
+     *
      * @param p The point on which the calculation is made
      * @return The color in the given point
      */
@@ -19,6 +20,7 @@ public interface LightSource {
 
     /**
      * get the vector from the light source to the given point
+     *
      * @param p The point on which the light is directed
      * @return the direction vector
      */

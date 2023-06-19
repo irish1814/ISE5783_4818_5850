@@ -53,6 +53,7 @@ public abstract class Geometry extends Intersectable {
     }
 
     /** calculate the normal vector at given point on the geometry
+     *
      * @param p Given point in a geometric shape
      * @return Normal vector from the given point
      * */
