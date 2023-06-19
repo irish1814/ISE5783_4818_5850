@@ -96,10 +96,9 @@ public class RayTracerBasic extends RayTracerBase {
      * @param v the ray direction vector
      * @return Specular component value
      */
-    private Double3 calcSpecular(Material material, Vector n,Vector l, double nl,Vector v){
+    private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v){
         Vector R = l.add(n.scalarProduct(-2 * nl));
-        double dp = R.dotProduct(v);
-        double pow = Math.pow(dp,material.nShininess);
+        double pow = Math.pow(R.dotProduct(v), material.nShininess);
         return material.kS.scale(Math.abs(pow));
     }
 }
