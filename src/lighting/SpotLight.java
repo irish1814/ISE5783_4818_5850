@@ -21,7 +21,7 @@ public class SpotLight extends PointLight {
      */
     public SpotLight (Color intensity, Point pos, Vector dir){
         super(intensity,pos);
-        direction = dir;
+        direction = dir.normalize();
     }
 
 
@@ -30,7 +30,8 @@ public class SpotLight extends PointLight {
         double dotP =direction.dotProduct(getL(p));
         double max = dotP > 0 ? dotP : 0;
 
-        double d = getL(p).length();
+        //double d = getL(p).length();
+        double d = p.subtract(position).length();
         return getIntensity().scale(max).reduce(kC + kL*d + kQ*d*d);
     }
 
