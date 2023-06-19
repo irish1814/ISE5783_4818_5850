@@ -122,7 +122,7 @@ public class IntegrationTest {
 
     /**
      * Test method for
-     * {@link geometries.Triangle#findIntersections(Ray)}.
+     * {@link geometries.Triangle#findGeoIntersections(Ray)}.
      */
     @Test
     void testIntegrationTriangle() {
