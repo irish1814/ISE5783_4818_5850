@@ -17,12 +17,22 @@ public class AmbientLight extends Light {
 
 
     /**
-     * constructor initialize the intensity of the light
+     * constructor initialize the intensity of the light with Double3
      *
      * @param iA intensity of the light based on RGB values
      * @param kA light attenuation coefficient
      */
     public AmbientLight(Color iA, Double3 kA) {
+        super(iA.scale(kA));
+    }
+
+    /**
+     * constructor initialize the intensity of the light with double
+     *
+     * @param iA intensity of the light based on RGB values
+     * @param kA light attenuation coefficient
+     */
+    public AmbientLight(Color iA, double kA) {
         super(iA.scale(kA));
     }
 }

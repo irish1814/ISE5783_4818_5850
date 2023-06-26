@@ -7,6 +7,8 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+
 
 /**
  * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
@@ -143,7 +145,7 @@ public class Polygon extends Geometry {
 
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         //check whether the ray intersect with the polygon's plane or not
         List<GeoPoint> planePoints = plane.findGeoIntersections(ray);
         if (planePoints == null)
@@ -169,7 +171,10 @@ public class Polygon extends Geometry {
         }
         if (sum > 1)
             return null;
+        if(!(alignZero(ray.getP0().distance(intersectionPoint.point) - maxDistance) <= 0))
+            return null;
         //if all coords positive or zero and sum is no more than 1 - the point is inside the polygon
+        intersectionPoint.geometry = this;
         return List.of(intersectionPoint);
     }
 }

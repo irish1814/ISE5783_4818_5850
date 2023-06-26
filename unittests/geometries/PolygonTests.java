@@ -127,4 +127,22 @@ public class PolygonTests {
         Ray outsideEdgeContinuationRay = new Ray(new Vector(0, 3, -2), new Point(0, 0, 2));
         assertNull(polygon.findIntersections(outsideEdgeContinuationRay));
     }
+
+    @Test
+    public void findGeoIntersections() {
+        Polygon polygon = new Polygon(new Point(1, 2, 0), new Point(-2, 0, 0), new Point(0, -2, 0),
+                new Point(2, -2, 0), new Point(3, 0, 0));
+
+        // TC01: ray has an intersection with the triangle - inside the triangle, and distance is less than max
+        Ray insideRay = new Ray(new Vector(1, 0, -2), new Point(0, 0, 2));
+        assertEquals(List.of(new Intersectable.GeoPoint(polygon,new Point(1, 0, 0))),
+                polygon.findGeoIntersections(insideRay,4));
+
+        // TC02: ray has an intersection with the triangle - inside the triangle, and distance is less than max
+        assertNull(polygon.findGeoIntersections(insideRay,1));
+
+
+    }
 }
+
+

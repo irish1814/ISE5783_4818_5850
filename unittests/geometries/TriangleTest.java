@@ -85,4 +85,18 @@ class TriangleTest {
         Ray outsideEdgeContinuationRay = new Ray(new Vector(0, 2, -2), new Point(0, 0, 2));
         assertNull(triangle.findIntersections(outsideEdgeContinuationRay));
     }
+
+    @Test
+    public void findGeoIntersections() {
+        Triangle triangle = new Triangle(new Point(2, 0, 0), new Point(0, 1, 0), new Point(0, -1, 0));
+
+        // TC01: ray has an intersection with the triangle - inside the triangle and less than max distance
+        Ray insideRay = new Ray(new Vector(1, 0, -2), new Point(0, 0, 2));
+        assertEquals(List.of(new Intersectable.GeoPoint(triangle,new Point(1, 0, 0))),
+                triangle.findGeoIntersections(insideRay,4));
+
+        // TC02: ray has an intersection with the triangle - inside the triangle and more than max distance
+        assertNull(triangle.findGeoIntersections(insideRay,1));
+
+    }
 }

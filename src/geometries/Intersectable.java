@@ -70,8 +70,19 @@ public abstract class Intersectable {
      * @return list of intersection GeoPoints
      */
     public final List<GeoPoint> findGeoIntersections(Ray ray) {
-        return findGeoIntersectionsHelper(ray);
+        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }
+    /**
+     * find all the GeoIntersections points from a given ray to the shape
+     * that are far from the ray less than the max distance
+     * @param maxDistance the max distance to check
+     * @param ray given ray from a geometric shape
+     * @return list of intersection GeoPoints
+     */
+    public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+        return findGeoIntersectionsHelper(ray, maxDistance);
+    }
+
 
     /**
      * find intersections with a ray and which shape it belongs to
@@ -79,5 +90,5 @@ public abstract class Intersectable {
      * @param ray ray we want to find intersection with
      * @return list of points of the corresponding shape
      */
-    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
 }

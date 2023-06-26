@@ -69,6 +69,7 @@ class PlaneTest {
         Ray notParallelNo = new Ray(new Vector(0, 3, 1), new Point(0, 0, 1));
         assertNull(plane.findIntersections(notParallelNo));
 
+
         // =============== Boundary Values Tests ==================
 
         // 2 test cases when the ray is parallel to the plane
@@ -98,5 +99,20 @@ class PlaneTest {
         // TC08: ray starts at plane's ref.point
         Ray rayFromQ0 = new Ray(new Vector(0, 3, 1), new Point(-3, 0, 0));
         assertNull(plane.findIntersections(rayFromQ0));
+    }
+
+    @Test
+    public void findGeoIntersections() {
+        Plane plane = new Plane(new Point(-3, 0, 0), new Point(0, -3, 0), new Point(3, 0, 0));
+
+        //TC01: ray is not parallel to the plane and has an intersection with the plane and distance is less than max
+        Ray notParallelYes = new Ray(new Vector(0, 1, -1), new Point(0, 0, 3));
+        assertEquals(List.of(new Intersectable.GeoPoint(plane,new Point(0, 3, 0))),
+                plane.findGeoIntersections(notParallelYes,5));
+
+        //TC02: ray is not parallel to the plane and has an intersection with the plane and distance is more than max
+        Ray notParallelNo = new Ray(new Vector(0, 1, -1), new Point(0, 0, 3));
+        assertNull(plane.findGeoIntersections(notParallelNo,3));
+
     }
 }

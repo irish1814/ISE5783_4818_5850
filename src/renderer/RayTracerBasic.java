@@ -5,6 +5,8 @@ import primitives.*;
 import scene.Scene;
 import geometries.Intersectable.GeoPoint;
 
+import java.util.List;
+
 import static primitives.Util.*;
 
 /**
@@ -13,6 +15,23 @@ import static primitives.Util.*;
  * @author Ishay Houri & Elad Radomski
  */
 public class RayTracerBasic extends RayTracerBase {
+
+    /**
+     * constant for moving the intersection point outside the geometry
+     * in the direction of the normal vector - to fix the shadow bug
+     */
+    private static final double DELTA = 0.1;
+
+
+    private boolean unshaded(GeoPoint gp, Vector l, Vector n, LightSource ls){
+        Vector lightDirection = l.scalarProduct(-1); // from point to light source
+        Vector epsVector = n.scalarProduct((n.dotProduct(lightDirection) > 0)? DELTA : -DELTA);
+        Point point = gp.point.add(epsVector);
+        Ray lightRay = new Ray(lightDirection,point);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, ls.getDistance(point));
+        return (intersections == null);
+    }
+
 
     /**
      * Creates a new instance of the RayTracerBasic class with the specified scene.
@@ -68,9 +87,11 @@ public class RayTracerBasic extends RayTracerBase {
             Vector l = lightSource.getL(gp.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) {
-                Color iL = lightSource.getIntensity(gp.point);
-                color = color.add(iL.scale(calcDiffusive(material, nl)),
-                        iL.scale(calcSpecular(material, n, l, nl, v)));
+                if (unshaded(gp , l, n,lightSource)){
+                    Color iL = lightSource.getIntensity(gp.point);
+                    color = color.add(iL.scale(calcDiffusive(material, nl)),
+                            iL.scale(calcSpecular(material, n, l, nl, v)));
+                }
             }
         }
         return color;

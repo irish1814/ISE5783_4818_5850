@@ -115,4 +115,26 @@ class SphereTest {
         assertNull(s.findIntersections(orthgonalRay));
 
     }
+
+    @Test
+    public void findGeoIntersections() {
+        Sphere s = new Sphere(1, new Point(0, 0, 0));
+
+        // a direction vector (constant in the tests) of the ray
+        Vector v = new Vector(1, 0, 0);
+
+        // TC01: there is an intersection between the ray and the sphere and less than the max distance
+        Ray r = new Ray(v, new Point(-2, 0, 0));
+        assertEquals(List.of(new Intersectable.GeoPoint(s,new Point(1, 0, 0)),
+                        new Intersectable.GeoPoint(s,new Point(-1, 0, 0)))
+                ,s.findGeoIntersections(r,4));
+
+        // TC02: there is an intersection between the ray and the sphere and one more than the max distance one less
+        assertEquals(List.of(new Intersectable.GeoPoint(s,new Point(-1, 0, 0)))
+                ,s.findGeoIntersections(r,2));
+
+        // TC03: there is an intersection between the ray and the sphere and two of them less than max distance
+        assertNull(s.findGeoIntersections(r,0.5));
+
+    }
 }

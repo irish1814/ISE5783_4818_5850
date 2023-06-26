@@ -27,7 +27,7 @@ public class Triangle extends Polygon {
 
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
         //check whether the ray intersect with the polygon's plane or not
         var planePoints = plane.findGeoIntersections(ray);
         if (planePoints == null) return null;
@@ -50,7 +50,8 @@ public class Triangle extends Polygon {
         Vector n3 = v3.crossProduct(v1).normalize();
         double vn3 = alignZero(dir.dotProduct(n3));
         if (vn1 * vn3 <= 0) return null;
-
+        if(!(alignZero(planePoints.get(0).point.distance(ray.getP0()) - maxDistance) <= 0))
+            return null;
         planePoints.get(0).geometry = this;
         return planePoints;
     }

@@ -73,7 +73,7 @@ public class Plane extends Geometry {
     }
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
         // check if the ray is parallel to the plane
         double nv = normal.dotProduct(ray.getDirection());
         if (isZero(nv) || ray.getP0().equals(this.q0))
@@ -81,6 +81,7 @@ public class Plane extends Geometry {
 
         // calculate the t value
         double t = normal.dotProduct(q0.subtract(ray.getP0())) / nv;
-        return alignZero(t) <= 0 ? null : List.of(new GeoPoint(this, ray.getPoint(t)));
+        return (alignZero(t) <= 0) || !(alignZero(t - maxDistance) <= 0)? null
+                :List.of(new GeoPoint(this, ray.getPoint(t)));
     }
 }
