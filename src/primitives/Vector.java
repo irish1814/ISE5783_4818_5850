@@ -1,5 +1,6 @@
 package primitives;
 
+import primitives.*;
 /**
  * This class will serve all primitive and geometries classes based on a Vector
  *

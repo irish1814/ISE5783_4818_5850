@@ -21,6 +21,12 @@ public class Ray {
     private final Vector direction;
 
     /**
+     * constant for moving the intersection point outside the geometry
+     * in the direction of the normal vector - to fix the shadow bug
+     */
+    private static final double DELTA = 0.1;
+
+    /**
      * Constructor to initialize Ray based on Point and Vector
      *
      * @param p The point that shows the beginning of the ray
@@ -29,6 +35,11 @@ public class Ray {
     public Ray(Vector v, Point p) {
         direction = v.normalize();
         p0 = p;
+    }
+
+    public Ray(Vector direction,Point head, Vector normal){
+        this.p0 = head.add(normal.scalarProduct(normal.dotProduct(direction) > 0 ? DELTA : -DELTA));
+        this.direction = direction.normalize();
     }
 
     /**
