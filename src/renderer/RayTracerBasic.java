@@ -5,6 +5,8 @@ import primitives.*;
 import scene.Scene;
 import geometries.Intersectable.GeoPoint;
 
+import java.util.List;
+
 import static primitives.Util.*;
 
 /**
@@ -13,6 +15,32 @@ import static primitives.Util.*;
  * @author Ishay Houri & Elad Radomski
  */
 public class RayTracerBasic extends RayTracerBase {
+
+    /**
+     * Checks if a given point is unshaded by a light source.
+     *
+     * @param geoPoint The geometric point to be checked.
+     * @param light    The light source.
+     * @param toLight  The vector representing the direction from the point to the
+     *                 light source.
+     * @param normal   The surface normal at the point.
+     * @return true if the point is unshaded by the light source, false otherwise.
+     */
+    @SuppressWarnings("unused")
+    private boolean unshaded(GeoPoint geoPoint, LightSource light, Vector toLight, Vector normal) {
+        Vector lightDirection = toLight.scalarProduct(-1); // from point to light source
+        Ray lightRay = new Ray(lightDirection, geoPoint.point);
+
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+        if (intersections == null)
+            return true;
+
+        for (GeoPoint g : intersections)
+            if (g.geometry.getMaterial().kD == Double3.ZERO)
+                return false;
+
+        return true;
+    }
 
     /**
      * Creates a new instance of the RayTracerBasic class with the specified scene.
