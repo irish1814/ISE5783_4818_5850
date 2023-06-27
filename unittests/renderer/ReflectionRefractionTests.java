@@ -5,6 +5,7 @@ package renderer;
 
 import static java.awt.Color.*;
 
+import lighting.PointLight;
 import org.junit.jupiter.api.Test;
 
 import geometries.Sphere;
@@ -104,4 +105,46 @@ public class ReflectionRefractionTests {
                 .renderImage() //
                 .writeToImage();
     }
+
+    /**
+     * a test that show all of the effects at once, combining more than 3 geometries
+     * and show the shadow the transparency and the reflection
+     */
+    @Test
+    public void myOwnPic() {
+        Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+                .setVPSize(200, 200).setVPDistance(1000);
+
+        scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
+
+        scene.lights.add(new SpotLight(new Color(800, 200, 300), new Point(60, 50, 0), new Vector(0, 0, -1)) //
+                .setKl(4E-5).setKq(2E-7));
+        scene.lights.add( new PointLight(new Color(100,600,200),new Point(30,40,0)).setKl(4E-5).setKq(2E-7));
+
+        scene.geometries.add( //
+                new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135),
+                        new Point(75, 75, -150)) //
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)), //
+                new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)), //
+                new Sphere(30d, new Point(60, 50, -50)).setEmission(new Color(BLUE)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6)),
+                new Sphere(30d, new Point(30, 40, -30)).setEmission(new Color(GREEN)) //
+                .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6)),
+                new Triangle(new Point(-30, -5, 0), new Point(-2, -20, 0), new Point(-75, -50, -5))
+                        .setEmission(new Color(RED)).setMaterial(new Material().setKd(0.2).setKs(0.2).
+                                setShininess(30).setKt(0.6)),
+                new Sphere(50d, new Point(5, 10, -70)).setEmission(new Color(200,40,70)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6))
+                );
+
+        ImageWriter imageWriter = new ImageWriter("MyOwnPicture", 600, 600);
+        camera.setImageWriter(imageWriter) //
+                .setRayTracer(new RayTracerBasic(scene)) //
+                .renderImage() //
+                .writeToImage();
+
+    }
+
+
 }

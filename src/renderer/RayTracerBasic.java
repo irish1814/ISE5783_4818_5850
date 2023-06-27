@@ -33,15 +33,22 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * the initially K constant
      */
-    private static final Double3 INITIAL_K = new Double3(1.0);
+    private static final Double3 INITIAL_K = Double3.ONE;
 
 
+    /**
+     * Checks if a given point is unshaded by a light source.
+     *
+     * @param gp The geometric point to be checked.
+     * @param l A vector from the camera to the point.
+     * @param n The surface normal at the point.
+     * @param ls The light source that we check
+     * @return true if the point is unshaded by the light source, false otherwise.
+     */
     private boolean unshaded(GeoPoint gp, Vector l, Vector n, LightSource ls) {
         Vector lightDirection = l.scalarProduct(-1); // from point to light source
-//        Vector epsVector = n.scalarProduct((n.dotProduct(lightDirection) > 0) ? Ray : -DELTA);
-        Point point = gp.point;
-        Ray lightRay = new Ray(lightDirection, point,n);
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, ls.getDistance(point));
+        Ray lightRay = new Ray(lightDirection, gp.point,n);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, ls.getDistance(gp.point));
         if (intersections == null) return true;
         List<GeoPoint> intersectionsWithZero = new ArrayList<>();
         for (GeoPoint p:intersections ) {
@@ -49,6 +56,29 @@ public class RayTracerBasic extends RayTracerBase {
                 intersectionsWithZero.add(p);
         }
         return intersectionsWithZero.isEmpty();
+    }
+
+    /***
+     * function that calculate the power of the shadow in a specific point.
+     * @param gp The geometric point to be checked.
+     * @param ls The light source we calculate the shadow for.
+     * @param l A vector from the camera to the point.
+     * @param n The surface normal at the point.
+     * @return The shadow's power.
+     */
+    private Double3 transparency(GeoPoint gp, LightSource ls, Vector l, Vector n){
+        Vector lightDirection = l.scalarProduct(-1); // from point to light source
+        Ray lightRay = new Ray(lightDirection, gp.point,n);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, ls.getDistance(gp.point));
+        Double3 ktr = Double3.ONE;
+        if (intersections == null) return ktr;
+        for (GeoPoint p:intersections ) {
+            if(ls.getDistance(gp.point) > p.point.distance(gp.point))
+                ktr = ktr.product(p.geometry.getMaterial().kT);
+            /*if(ktr.equals(Double3.ZERO))
+                return  Double3.ZERO;*/
+        }
+        return ktr;
     }
 
 
@@ -85,7 +115,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @return Color of the given GeoPoint
      */
     private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
-        Color color = calcLocalEffects(gp, ray);
+        Color color = calcLocalEffects(gp, ray,k);
         return level == 1 ? color
                 : color.add(calcGlobalEffects(gp, ray, level, k));
     }
@@ -109,22 +139,25 @@ public class RayTracerBasic extends RayTracerBase {
      *
      * @param gp  geoPoint in the space
      * @param ray the ray casting to the point
+     * @param k the partial transparency parameter
      * @return local Color of the given GeoPoint
      */
-    private Color calcLocalEffects(GeoPoint gp, Ray ray) {
+    private Color calcLocalEffects(GeoPoint gp, Ray ray, Double3 k) {
         Color color = gp.geometry.getEmission();
         Vector v = ray.getDirection();
         Vector n = gp.geometry.getNormal(gp.point);
         double nv = alignZero(n.dotProduct(v));
         if (nv == 0) return color;
 
+
         Material material = gp.geometry.getMaterial();
         for (LightSource lightSource : scene.lights) {
             Vector l = lightSource.getL(gp.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) {
-                if (unshaded(gp, l, n, lightSource)) {
-                    Color iL = lightSource.getIntensity(gp.point);
+                Double3 ktr = transparency(gp, lightSource, l,n);
+                if (!ktr.product(k).lowerThan(MIN_CALC_COLOR_K)) {
+                    Color iL = lightSource.getIntensity(gp.point).scale(ktr);
                     color = color.add(iL.scale(calcDiffusive(material, nl)),
                             iL.scale(calcSpecular(material, n, l, nl, v)));
                 }

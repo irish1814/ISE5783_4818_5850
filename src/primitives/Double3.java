@@ -143,6 +143,7 @@ public class Double3 {
         return d1 < k && d2 < k && d3 < k;
     }
 
+
     /**
      * Checks whether all the numbers are lower than three numbers in another triad
      *
