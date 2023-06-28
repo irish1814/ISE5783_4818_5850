@@ -75,8 +75,6 @@ public class RayTracerBasic extends RayTracerBase {
         for (GeoPoint p:intersections ) {
             if(ls.getDistance(gp.point) > p.point.distance(gp.point))
                 ktr = ktr.product(p.geometry.getMaterial().kT);
-            /*if(ktr.equals(Double3.ZERO))
-                return  Double3.ZERO;*/
         }
         return ktr;
     }
