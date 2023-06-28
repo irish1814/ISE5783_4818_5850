@@ -37,6 +37,15 @@ public class Ray {
         p0 = p;
     }
 
+    /**
+     * Constructor to initialize Ray based on Point, Vector
+     * and normal vector at the point the ray hits.
+     * to move the head of the ray - for shadow bug fix
+     *
+     * @param head The point that shows the beginning of the ray.
+     * @param direction Vector that show the direction of the ray.
+     * @param normal normal vector at the point the ray hits.
+     */
     public Ray(Vector direction,Point head, Vector normal){
         this.p0 = head.add(normal.scalarProduct(normal.dotProduct(direction) > 0 ? DELTA : -DELTA));
         this.direction = direction.normalize();
