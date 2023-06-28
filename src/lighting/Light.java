@@ -5,7 +5,7 @@ import primitives.Color;
 /**
  * This class is abstract class for all the light source
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 abstract class Light {
     final protected Color intensity;

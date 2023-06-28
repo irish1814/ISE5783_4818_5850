@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 /**
  * Testing primitives.Ray
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 class RayTest {
     /**

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 /**
  * Unit tests for geometries.Sphere class
  *
- * @author Elad Radomski & Ishay Houri
+ * @author Elad Radomski &amp; Ishay Houri
  */
 class SphereTest {
     /**

@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Unit tests for primitives.Vector class
  *
- * @author Elad Radomski & Ishay Houri
+ * @author Elad Radomski &amp; Ishay Houri
  */
 class VectorTest {
 

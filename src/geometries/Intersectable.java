@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * abstract class represents all intersection points of a geometric shape
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 public abstract class Intersectable {
 
@@ -82,7 +82,6 @@ public abstract class Intersectable {
     public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
         return findGeoIntersectionsHelper(ray, maxDistance);
     }
-
 
     /**
      * find intersections with a ray and which shape it belongs to

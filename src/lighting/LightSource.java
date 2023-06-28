@@ -6,7 +6,7 @@ import primitives.*;
  * An interface of all light sources that implements
  * the Phong Reflectance Model
  *
- * @author Elad Radomski & Ishay Houri
+ * @author Elad Radomski &amp; Ishay Houri
  */
 public interface LightSource {
     /**

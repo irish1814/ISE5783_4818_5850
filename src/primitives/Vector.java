@@ -4,7 +4,7 @@ import primitives.*;
 /**
  * This class will serve all primitive and geometries classes based on a Vector
  *
- * @author Ishay Houri & Elad Raz
+ * @author Ishay Houri &mp; Elad Raz
  */
 
 public class Vector extends Point {

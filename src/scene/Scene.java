@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * This class represents a scene in 3 dimension space
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 public class Scene {
     /**

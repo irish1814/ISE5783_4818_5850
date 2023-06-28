@@ -8,7 +8,7 @@ import primitives.Vector;
 /**
  * An interface represents all the Geometric shapes in 3D
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 public abstract class Geometry extends Intersectable {
     protected Color emission = Color.BLACK;

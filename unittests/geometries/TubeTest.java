@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Testing Tubes
  *
- * @author Elad Radomski & Ishay Houri
+ * @author Elad Radomski &amp; Ishay Houri
  */
 class TubeTest {
     /**

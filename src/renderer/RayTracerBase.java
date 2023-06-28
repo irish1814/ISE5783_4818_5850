@@ -7,7 +7,7 @@ import scene.Scene;
 /**
  * An abstract class implements the coloring operation of the rays sent from the viewPlane
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 public abstract class RayTracerBase {
     protected final Scene scene;

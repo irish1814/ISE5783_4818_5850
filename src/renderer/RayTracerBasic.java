@@ -1,19 +1,19 @@
 package renderer;
 
+import geometries.Intersectable.GeoPoint;
 import lighting.LightSource;
 import primitives.*;
 import scene.Scene;
-import geometries.Intersectable.GeoPoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static primitives.Util.*;
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * Implementation of the RayTracerBase class that computes the color of the closest intersection point with the scene.
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 public class RayTracerBasic extends RayTracerBase {
 
@@ -40,22 +40,22 @@ public class RayTracerBasic extends RayTracerBase {
      * Checks if a given point is unshaded by a light source.
      *
      * @param gp The geometric point to be checked.
-     * @param l A vector from the camera to the point.
-     * @param n The surface normal at the point.
+     * @param l  A vector from the camera to the point.
+     * @param n  The surface normal at the point.
      * @param ls The light source that we check
      * @return true if the point is unshaded by the light source, false otherwise.
      */
+    @SuppressWarnings("unused")
     private boolean unshaded(GeoPoint gp, Vector l, Vector n, LightSource ls) {
         Vector lightDirection = l.scalarProduct(-1); // from point to light source
-        Ray lightRay = new Ray(lightDirection, gp.point,n);
+        Ray lightRay = new Ray(lightDirection, gp.point, n);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, ls.getDistance(gp.point));
         if (intersections == null) return true;
-        List<GeoPoint> intersectionsWithZero = new ArrayList<>();
-        for (GeoPoint p:intersections ) {
-            if(p.geometry.getMaterial().kT == Double3.ZERO)
-                intersectionsWithZero.add(p);
-        }
-        return intersectionsWithZero.isEmpty();
+
+        for (GeoPoint p : intersections)
+            if (p.geometry.getMaterial().kT.lowerThan(MIN_CALC_COLOR_K))
+                return false;
+        return true;
     }
 
     /***
@@ -66,15 +66,18 @@ public class RayTracerBasic extends RayTracerBase {
      * @param n The surface normal at the point.
      * @return The shadow's power.
      */
-    private Double3 transparency(GeoPoint gp, LightSource ls, Vector l, Vector n){
+    private Double3 transparency(GeoPoint gp, LightSource ls, Vector l, Vector n) {
         Vector lightDirection = l.scalarProduct(-1); // from point to light source
-        Ray lightRay = new Ray(lightDirection, gp.point,n);
+        Ray lightRay = new Ray(lightDirection, gp.point, n);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, ls.getDistance(gp.point));
         Double3 ktr = Double3.ONE;
         if (intersections == null) return ktr;
-        for (GeoPoint p:intersections ) {
-            if(ls.getDistance(gp.point) > p.point.distance(gp.point))
+
+        for (GeoPoint p : intersections) {
+            if (ls.getDistance(gp.point) > p.point.distance(gp.point)) {
                 ktr = ktr.product(p.geometry.getMaterial().kT);
+                if (ktr.lowerThan(MIN_CALC_COLOR_K)) return Double3.ZERO;
+            }
         }
         return ktr;
     }
@@ -113,7 +116,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @return Color of the given GeoPoint
      */
     private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
-        Color color = calcLocalEffects(gp, ray,k);
+        Color color = calcLocalEffects(gp, ray, k);
         return level == 1 ? color
                 : color.add(calcGlobalEffects(gp, ray, level, k));
     }
@@ -137,7 +140,7 @@ public class RayTracerBasic extends RayTracerBase {
      *
      * @param gp  geoPoint in the space
      * @param ray the ray casting to the point
-     * @param k the partial transparency parameter
+     * @param k   the partial transparency parameter
      * @return local Color of the given GeoPoint
      */
     private Color calcLocalEffects(GeoPoint gp, Ray ray, Double3 k) {
@@ -153,7 +156,7 @@ public class RayTracerBasic extends RayTracerBase {
             Vector l = lightSource.getL(gp.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) {
-                Double3 ktr = transparency(gp, lightSource, l,n);
+                Double3 ktr = transparency(gp, lightSource, l, n);
                 if (!ktr.product(k).lowerThan(MIN_CALC_COLOR_K)) {
                     Color iL = lightSource.getIntensity(gp.point).scale(ktr);
                     color = color.add(iL.scale(calcDiffusive(material, nl)),
@@ -214,7 +217,7 @@ public class RayTracerBasic extends RayTracerBase {
     private Ray constructReflectedRay(GeoPoint gp, Vector v, Vector n) {
         double vn = v.dotProduct(n);
         Vector r = v.subtract(n.scalarProduct(2 * vn));
-        return new Ray(r, gp.point,n);
+        return new Ray(r, gp.point, n);
     }
 
     /**
@@ -226,7 +229,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @return a refracted ray
      */
     private Ray constructRefractedRay(GeoPoint gp, Vector v, Vector n) {
-        return new Ray(v, gp.point,n);
+        return new Ray(v, gp.point, n);
     }
 
     /**
@@ -239,14 +242,11 @@ public class RayTracerBasic extends RayTracerBase {
      * @return the color we get after all the effects
      */
     private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
-        Color color = Color.BLACK;
         Vector v = ray.getDirection();
         Vector n = gp.geometry.getNormal(gp.point);
         Material material = gp.geometry.getMaterial();
-        return calcGlobalEffect(constructReflectedRay(gp, v, n),
-                level, k, material.kR)
-                .add(calcGlobalEffect(constructRefractedRay(gp, v, n),
-                        level, k, material.kT));
+        return calcGlobalEffect(constructReflectedRay(gp, v, n), level, k, material.kR)
+                .add(calcGlobalEffect(constructRefractedRay(gp, v, n), level, k, material.kT));
     }
 
     /**

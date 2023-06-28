@@ -6,7 +6,7 @@ import primitives.Double3;
 /**
  * This class represents ambient light
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 
 public class AmbientLight extends Light {

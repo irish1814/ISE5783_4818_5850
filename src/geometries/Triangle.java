@@ -11,7 +11,7 @@ import static primitives.Util.alignZero;
 /**
  * Plane class represents two-dimensional Triangle in 2D Cartesian coordinate
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 public class Triangle extends Polygon {
     /**
@@ -29,7 +29,7 @@ public class Triangle extends Polygon {
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
         //check whether the ray intersect with the polygon's plane or not
-        var planePoints = plane.findGeoIntersections(ray);
+        var planePoints = plane.findGeoIntersections(ray, maxDistance);
         if (planePoints == null) return null;
 
         Point p0 = ray.getP0();
@@ -50,8 +50,7 @@ public class Triangle extends Polygon {
         Vector n3 = v3.crossProduct(v1).normalize();
         double vn3 = alignZero(dir.dotProduct(n3));
         if (vn1 * vn3 <= 0) return null;
-        if(!(alignZero(planePoints.get(0).point.distance(ray.getP0()) - maxDistance) <= 0))
-            return null;
+
         planePoints.get(0).geometry = this;
         return planePoints;
     }

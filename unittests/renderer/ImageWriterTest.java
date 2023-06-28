@@ -6,7 +6,7 @@ import primitives.Color;
 /**
  * Testing ImageWriter Class by creating a XxY pixels picture
  *
- * @author Elad & Ishay
+ * @author Elad &amp; Ishay
  */
 class ImageWriterTest {
 

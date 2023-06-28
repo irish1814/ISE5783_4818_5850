@@ -3,7 +3,7 @@ package geometries;
 /**
  * An Abstract class that represents all the Radial Geometry shapes
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 public abstract class RadialGeometry extends Geometry {
     /**

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * A class represents group of geometry's shapes
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 public class Geometries extends Intersectable {
     private final List<Intersectable> geometries = new LinkedList<>();
@@ -40,10 +40,10 @@ public class Geometries extends Intersectable {
     }
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         List<GeoPoint> GeoIntersections = null;
         for (Intersectable geometry : geometries) {
-            var tempList = geometry.findGeoIntersections(ray,maxDistance);
+            var tempList = geometry.findGeoIntersections(ray, maxDistance);
             if (tempList != null) {
                 if (GeoIntersections == null)
                     GeoIntersections = new LinkedList<>(tempList);

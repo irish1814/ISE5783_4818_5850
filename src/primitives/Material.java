@@ -1,14 +1,9 @@
 package primitives;
 
-import lighting.LightSource;
-import scene.Scene;
-
-import java.util.List;
-
 /**
  * A class represent the material properties of the geometry
  *
- * @author Elad Radomski & Ishay Houri
+ * @author Elad Radomski &amp; Ishay Houri
  */
 public class Material {
     /**
@@ -36,8 +31,6 @@ public class Material {
      */
     public Double3 kR = Double3.ZERO;
 
-
-
     /**
      * Set a new kD coefficient to the Material
      * with Double3 parameter
@@ -48,6 +41,7 @@ public class Material {
         kD = KD;
         return this;
     }
+
     /**
      * Set a new kD coefficient to the Material
      * with double parameter
@@ -69,6 +63,7 @@ public class Material {
         kS = KS;
         return this;
     }
+
     /**
      * Set a new kS coefficient to the Material
      * with double parameter
@@ -132,7 +127,4 @@ public class Material {
         kR = new Double3(KR);
         return this;
     }
-
-
-
 }

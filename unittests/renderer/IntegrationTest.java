@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Testing intersection between camera class and geometric objects
  *
- * @author Elad & Ishay
+ * @author Elad &amp; Ishay
  */
 public class IntegrationTest {
     /**

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  *  * Unit tests for geometries.Triangle class
  *
- * @author Elad Radomski & Ishay Houri
+ * @author Elad Radomski &amp; Ishay Houri
  */
 class TriangleTest {
     /**

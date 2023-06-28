@@ -13,7 +13,7 @@ import static primitives.Util.isZero;
 /**
  * This class represents a camera in 3 dimension space
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 
 public class Camera {

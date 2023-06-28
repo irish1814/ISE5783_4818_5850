@@ -9,7 +9,7 @@ import static primitives.Util.alignZero;
 /**
  * A Class that represent spotlight
  *
- * @author Elad Radomski & Ishay Houri
+ * @author Elad Radomski &amp; Ishay Houri
  */
 public class SpotLight extends PointLight {
 

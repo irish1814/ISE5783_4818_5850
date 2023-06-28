@@ -6,7 +6,7 @@ import primitives.*;
  * A Class that represent directional light
  * and implements the Phong Reflectance Model
  *
- * @author Elad Radomski & Ishay Houri
+ * @author Elad Radomski &amp; Ishay Houri
  */
 public class DirectionalLight extends Light implements LightSource {
 

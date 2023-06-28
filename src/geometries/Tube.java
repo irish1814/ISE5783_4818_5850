@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Tube class represents a Tube in 3D
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 public class Tube extends RadialGeometry {
     /**

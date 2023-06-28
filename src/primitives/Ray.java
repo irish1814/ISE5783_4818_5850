@@ -7,7 +7,7 @@ import static primitives.Util.isZero;
 /**
  * Ray class represents ray in 3D
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 public class Ray {
     /**
@@ -43,12 +43,12 @@ public class Ray {
      * to move the head of the ray - for shadow bug fix
      *
      * @param head The point that shows the beginning of the ray.
-     * @param direction Vector that show the direction of the ray.
-     * @param normal normal vector at the point the ray hits.
+     * @param direction Vector that show the direction of the ray - <b>must be normalized</b>
+     * @param normal normal vector at the point the ray hits - <b>must be normalized</b>
      */
     public Ray(Vector direction,Point head, Vector normal){
-        this.p0 = head.add(normal.scalarProduct(normal.dotProduct(direction) > 0 ? DELTA : -DELTA));
-        this.direction = direction.normalize();
+        this.p0 = head.add(normal.scalarProduct(normal.dotProduct(direction) >= 0 ? DELTA : -DELTA));
+        this.direction = direction;
     }
 
     /**

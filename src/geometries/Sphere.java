@@ -12,7 +12,7 @@ import static primitives.Util.alignZero;
 /**
  * Sphere class represents Sphere in 3D
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 public class Sphere extends RadialGeometry {
     /**
@@ -69,18 +69,14 @@ public class Sphere extends RadialGeometry {
         if (t2 <= 0) return null;
 
         double t1 = alignZero(tm - th);
+        if (alignZero(t1 - maxDistance) > 0) return null;
 
+        if (alignZero(t2 - maxDistance) > 0)
+            return t1 <= 0 ? null : List.of(new GeoPoint(this, ray.getPoint(t1)));
 
-        if(t1<= 0)
-            return (alignZero(t2 - maxDistance) <= 0)?
-                    List.of(new GeoPoint(this,ray.getPoint(t2))) : null;
-        else
-            if((alignZero(t1 - maxDistance) <= 0))
-                return (alignZero(t2 - maxDistance) <= 0) ?
-                        List.of(new GeoPoint(this,ray.getPoint(t2)),new GeoPoint(this, ray.getPoint(t1)))
-                        : List.of(new GeoPoint(this, ray.getPoint(t1)));
-            else
-                return (alignZero(t2 - maxDistance) <= 0)?
-                        List.of(new GeoPoint(this,ray.getPoint(t2))) : null;
+        // t2 is included
+        return t1 <= 0 ? List.of(new GeoPoint(this, ray.getPoint(t2)))
+                : List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
+
     }
 }

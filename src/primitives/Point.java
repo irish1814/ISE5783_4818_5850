@@ -3,7 +3,7 @@ package primitives;
 /**
  * This class will serve all primitive and geometries classes based on a Point
  *
- * @author Ishay Houri & Elad Radomski
+ * @author Ishay Houri &mp; Elad Radomski
  */
 
 public class Point {

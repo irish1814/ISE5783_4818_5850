@@ -3,7 +3,7 @@ package geometries;
 /**
  * Testing Polygons
  *
- * @author Elad Radomski & Ishay Houri
+ * @author Elad Radomski &amp; Ishay Houri
  */
 class CylinderTest {
     /**

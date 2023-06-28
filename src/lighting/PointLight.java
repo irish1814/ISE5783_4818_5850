@@ -8,7 +8,7 @@ import primitives.Vector;
  * A Class that represent Point light
  * and implements the Phong Reflectance Model
  *
- * @author Elad Radomski & Ishay Houri
+ * @author Elad Radomski &amp; Ishay Houri
  */
 public class PointLight extends Light implements LightSource {
 
